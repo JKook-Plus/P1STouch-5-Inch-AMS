@@ -44,7 +44,7 @@ void xtouch_loadTouchConfig(XTouchPanelConfig &config)
     // Allocate a temporary JsonDocument
     // Don't forget to change the capacity to match your requirements.
     // Use arduinojson.org/v6/assistant to compute the capacity.
-    JsonDocument doc;
+    StaticJsonDocument<512> doc;
 
     // Deserialize the JSON document
     DeserializationError error = deserializeJson(doc, file);

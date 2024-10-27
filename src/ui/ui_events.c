@@ -27,6 +27,7 @@ void onHomeControllerPlayPause(lv_event_t *e)
     case XTOUCH_PRINT_STATUS_PAUSED:
         lv_msg_send(XTOUCH_COMMAND_RESUME, NULL);
         lv_obj_add_state(target, LV_STATE_DISABLED);
+        
         break;
     case XTOUCH_PRINT_STATUS_RUNNING:
     case XTOUCH_PRINT_STATUS_PREPARE:

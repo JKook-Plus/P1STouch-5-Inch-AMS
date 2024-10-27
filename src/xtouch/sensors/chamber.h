@@ -4,7 +4,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-#define XTOUCH_CHAMBER_TEMP_PIN 22
+#define XTOUCH_CHAMBER_TEMP_PIN 17
 
 // Setup a temperatureSensorsOneWire instance to communicate with any temperatureSensorsOneWire devices
 OneWire temperatureSensorsOneWire(XTOUCH_CHAMBER_TEMP_PIN);
