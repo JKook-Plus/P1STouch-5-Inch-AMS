@@ -613,7 +613,7 @@ lv_obj_t *ui_temperatureComponent_create(lv_obj_t *comp_parent)
 
     lv_obj_t *cui_temperatureComponentPartFanInput;
     cui_temperatureComponentPartFanInput = lv_textarea_create(cui_temperatureComponentPartFan);
-    lv_obj_set_width(cui_temperatureComponentPartFanInput, 50);
+    lv_obj_set_width(cui_temperatureComponentPartFanInput, 100);
     lv_obj_set_height(cui_temperatureComponentPartFanInput, LV_SIZE_CONTENT); /// 70
     lv_textarea_set_max_length(cui_temperatureComponentPartFanInput, 3);
     lv_textarea_set_text(cui_temperatureComponentPartFanInput, "0");
@@ -704,7 +704,7 @@ lv_obj_t *ui_temperatureComponent_create(lv_obj_t *comp_parent)
 
     lv_obj_t *cui_temperatureComponentAuxFanInput;
     cui_temperatureComponentAuxFanInput = lv_textarea_create(cui_temperatureComponentAuxFan);
-    lv_obj_set_width(cui_temperatureComponentAuxFanInput, 50);
+    lv_obj_set_width(cui_temperatureComponentAuxFanInput, 100);
     lv_obj_set_height(cui_temperatureComponentAuxFanInput, LV_SIZE_CONTENT); /// 70
     lv_textarea_set_max_length(cui_temperatureComponentAuxFanInput, 3);
     lv_textarea_set_text(cui_temperatureComponentAuxFanInput, "0");
@@ -795,7 +795,7 @@ lv_obj_t *ui_temperatureComponent_create(lv_obj_t *comp_parent)
 
     lv_obj_t *cui_temperatureComponentChamberFanInput;
     cui_temperatureComponentChamberFanInput = lv_textarea_create(cui_temperatureComponentChamberFan);
-    lv_obj_set_width(cui_temperatureComponentChamberFanInput, 50);
+    lv_obj_set_width(cui_temperatureComponentChamberFanInput, 100);
     lv_obj_set_height(cui_temperatureComponentChamberFanInput, LV_SIZE_CONTENT); /// 70
     lv_textarea_set_max_length(cui_temperatureComponentChamberFanInput, 3);
     lv_textarea_set_text(cui_temperatureComponentChamberFanInput, "0");
