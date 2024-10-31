@@ -99,7 +99,7 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
         }
         if (incomingJson["print"].containsKey("home_flag"))
         {
-            bambuStatus.home_flag, incomingJson["print"]["home_flag"].as<int>();
+            bambuStatus.home_flag = incomingJson["print"]["home_flag"].as<int>();
         }
 
         if (incomingJson["print"].containsKey("hw_switch_state"))
