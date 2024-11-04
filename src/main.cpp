@@ -12,6 +12,8 @@
 #include "ui/ui.h"
 #include "xtouch/sdcard.h"
 #include "xtouch/hms.h"
+#include "xtouch/webserver.h"
+
 
 #if defined(__XTOUCH_SCREEN_50__)
 #include "devices/5.0/screen.h"
@@ -63,19 +65,31 @@ void setup()
 
   xtouch_screen_setupScreenTimer();
   xtouch_setupGlobalEvents();
-  if (cloud.login())
-  {
-    if (!cloud.isPaired())
+  if (!cloud.hasAuthTokens())
     {
-      cloud.selectPrinter();
+      if (!cloud.mainLogin(""))
+      {
+        xtouch_webserver_begin();
+      }
+      else
+      {
+        xtouch_mqtt_setup();
+      }
     }
     else
     {
-      cloud.loadPair();
+      cloud.loadAuthTokens();
+      if (!cloud.isPaired())
+      {
+        cloud.selectPrinter();
+      }
+      else
+      {
+        cloud.loadPair();
+      }
+      xtouch_mqtt_setup();
     }
-  }
-  xtouch_mqtt_setup();
-  xtouch_chamber_timer_init();
+    xtouch_chamber_timer_init();
 
   
   
@@ -117,6 +131,7 @@ void loop()
 {
   lv_timer_handler();
   lv_task_handler();
-  xtouch_mqtt_loop();
+  if (cloud.loggedIn)
+    xtouch_mqtt_loop();
   ArduinoOTA.handle();
 }
