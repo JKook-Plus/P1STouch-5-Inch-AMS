@@ -148,26 +148,26 @@ void xtouch_device_onHomeCommand(lv_msg_t *m)
 
 void xtouch_device_onLeftCommand(lv_msg_t *m)
 {
-    xtouch_device_move_axis("X", controlMode.inc == 10 ? -10 : -1, XTOUCH_DEVICE_CONTROL_MOVE_SPEED_XY);
+    xtouch_device_move_axis("X", -controlMode.inc , XTOUCH_DEVICE_CONTROL_MOVE_SPEED_XY);
 }
 
 void xtouch_device_onRightCommand(lv_msg_t *m)
 {
-    xtouch_device_move_axis("X", controlMode.inc == 10 ? 10 : 1, XTOUCH_DEVICE_CONTROL_MOVE_SPEED_XY);
+    xtouch_device_move_axis("X", controlMode.inc , XTOUCH_DEVICE_CONTROL_MOVE_SPEED_XY);
 }
 
 void xtouch_device_onUpCommand(lv_msg_t *m)
 {
     String axis = controlMode.axis == ControlAxisXY ? "Y" : "Z";
     int multiplier = axis == "Y" ? 1 : -1;
-    xtouch_device_move_axis(axis, controlMode.inc == 10 ? 10 * multiplier : 1 * multiplier, axis == "Y" ? XTOUCH_DEVICE_CONTROL_MOVE_SPEED_XY : XTOUCH_DEVICE_CONTROL_MOVE_SPEED_Z);
+    xtouch_device_move_axis(axis, controlMode.inc * multiplier, axis == "Y" ? XTOUCH_DEVICE_CONTROL_MOVE_SPEED_XY : XTOUCH_DEVICE_CONTROL_MOVE_SPEED_Z);
 }
 
 void xtouch_device_onDownCommand(lv_msg_t *m)
 {
     String axis = controlMode.axis == ControlAxisXY ? "Y" : "Z";
     int multiplier = axis == "Y" ? -1 : 1;
-    xtouch_device_move_axis(axis, controlMode.inc == 10 ? 10 * multiplier : 1 * multiplier, axis == "Y" ? XTOUCH_DEVICE_CONTROL_MOVE_SPEED_XY : XTOUCH_DEVICE_CONTROL_MOVE_SPEED_Z);
+    xtouch_device_move_axis(axis, controlMode.inc  * multiplier, axis == "Y" ? XTOUCH_DEVICE_CONTROL_MOVE_SPEED_XY : XTOUCH_DEVICE_CONTROL_MOVE_SPEED_Z);
 }
 
 void xtouch_device_onBedTargetTempCommand(lv_msg_t *m)
@@ -214,7 +214,9 @@ void xtouch_device_onPrintSpeedCommand(lv_msg_t *m)
 
 void xtouch_device_onIncSwitchCommand(lv_msg_t *m)
 {
-    controlMode.inc = controlMode.inc == 1 ? 10 : 1;
+    if (controlMode.inc==1)  controlMode.inc =10;
+    else if (controlMode.inc==10)  controlMode.inc =100;
+    else if (controlMode.inc==100)  controlMode.inc =1;
 }
 
 void xtouch_device_onStopCommand(lv_msg_t *m)
