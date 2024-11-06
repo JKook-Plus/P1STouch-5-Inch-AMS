@@ -154,6 +154,12 @@ void onNozzleDown(lv_event_t *e)
 void onFilamentUnloadConfirm() { lv_msg_send(XTOUCH_COMMAND_UNLOAD_FILAMENT, NULL); }
 void onFilamentUnload(lv_event_t *e)
 {
+
+    if (bambuStatus.m_tray_now<16){
+        lv_msg_send(XTOUCH_COMMAND_AMS_UNLOAD_SLOT, 0);
+        return;
+    }
+
     ui_confirmPanel_show("Please remove\nthe filament after\n" LV_SYMBOL_CUT, onFilamentUnloadConfirm);
 }
 
