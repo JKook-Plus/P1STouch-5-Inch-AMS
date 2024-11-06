@@ -1,4 +1,5 @@
 #include "../ui.h"
+#include "../../xtouch/trays.h"
 
 #define SLOT_COUNT 5
 #define AMS_BORDER 8
@@ -148,11 +149,20 @@ void ui_event_comp_filamentComponent_onAmsUpdate(lv_event_t *e)
         lv_color_t color = lv_color_hex(message->data >> 8);
         lv_color_t color_inv = lv_color_hex((0xFFFFFF - (message->data >> 8)) & 0xFFFFFF);
 
+
+        
+        char buffer[100];
+        memset(buffer,0,100);
+        sprintf(buffer,"Slot %d\n%s",tray_id,get_tray_type(tray_id));
+        lv_label_set_text(target, buffer);
+
         printf(" tray_now: %d, tray_tar: %d, slot: %d, color: %06llX \n", bambuStatus.m_tray_now, bambuStatus.m_tray_tar, tray_id, message->data >> 8);
 
         slot_cache[tray_id] = message->data;
         lv_obj_set_style_bg_color(target, color, LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_obj_set_style_text_color(target, color_inv, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+        
 
         lv_obj_set_style_border_color(target, color_inv, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -278,7 +288,7 @@ lv_obj_t *ui_filamentComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_border_width(cui_AmsSlot1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(cui_AmsSlot1, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(cui_AmsSlot1, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(cui_AmsSlot1, 28, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(cui_AmsSlot1, 14, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_bottom(cui_AmsSlot1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(cui_AmsSlot1, lv_color_hex(0x777777), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_AmsSlot1, 255, LV_PART_MAIN | LV_STATE_PRESSED);
@@ -304,7 +314,7 @@ lv_obj_t *ui_filamentComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_border_width(cui_AmsSlot2, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(cui_AmsSlot2, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(cui_AmsSlot2, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(cui_AmsSlot2, 28, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(cui_AmsSlot2, 14, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_bottom(cui_AmsSlot2, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(cui_AmsSlot2, lv_color_hex(0x777777), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_AmsSlot2, 255, LV_PART_MAIN | LV_STATE_PRESSED);
@@ -330,7 +340,7 @@ lv_obj_t *ui_filamentComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_border_width(cui_AmsSlot3, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(cui_AmsSlot3, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(cui_AmsSlot3, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(cui_AmsSlot3, 28, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(cui_AmsSlot3, 14, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_bottom(cui_AmsSlot3, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(cui_AmsSlot3, lv_color_hex(0x777777), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_AmsSlot3, 255, LV_PART_MAIN | LV_STATE_PRESSED);
@@ -356,7 +366,7 @@ lv_obj_t *ui_filamentComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_border_width(cui_AmsSlot4, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(cui_AmsSlot4, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(cui_AmsSlot4, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(cui_AmsSlot4, 28, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(cui_AmsSlot4, 14, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_bottom(cui_AmsSlot4, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(cui_AmsSlot4, lv_color_hex(0x777777), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_AmsSlot4, 255, LV_PART_MAIN | LV_STATE_PRESSED);

@@ -21,7 +21,7 @@ String xtouch_mqtt_report_topic;
 
 #include "ams.h"
 #include "device.h"
-
+#include "trays.h"
 #define XTOUCH_MQTT_SERVER_TIMEOUT 20
 #define XTOUCH_MQTT_SERVER_PUSH_STATUS_TIMEOUT 15
 #define XTOUCH_MQTT_SERVER_JSON_PARSE_SIZE 8192
@@ -522,15 +522,21 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
                 long int last_ams_version = bambuStatus.ams_version;
 
                 char color[16];
+                char traytype[16];
                 
                 for (uint8_t ams_idx=0;ams_idx<array.size();ams_idx++){
                     JsonArray trays = array[ams_idx]["tray"].as<JsonArray>();
                     for (uint8_t tray_idx=0;tray_idx<trays.size();tray_idx++){
                         memset(color,0,16);
+                        memset(traytype,0,16);
                         trays[tray_idx]["tray_color"].as<String>().toCharArray(color,16);
+                        trays[tray_idx]["tray_type"].as<String>().toCharArray(traytype,16);
 
                         color[6]=0;
                         xtouch_mqtt_parse_tray(tray_idx+1,color,trays[tray_idx]["n"].as<int>());
+
+                        set_tray_type(tray_idx+1,traytype);
+                        
                     }
                 }
 
@@ -622,10 +628,16 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
         {
             bambuStatus.ams_support_virtual_tray = true;
             char color[16];
+            char traytype[16];
             memset(color,0,16);
+            memset(traytype,0,16);
             incomingJson["print"]["vt_tray"]["tray_color"].as<String>().toCharArray(color,16);
+            incomingJson["print"]["vt_tray"]["tray_type"].as<String>().toCharArray(traytype,16);
             color[6]=0;
             xtouch_mqtt_parse_tray(0,color,incomingJson["print"]["vt_tray"]["n"].as<int>());
+
+            
+            set_tray_type(0,traytype);
         }
         else
         {
