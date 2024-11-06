@@ -77,6 +77,16 @@ void ui_event_comp_filamentComponent_amsLoad(lv_event_t *e)
     }
 }
 
+void ui_filamentComponent_onAMSBitsSlot(lv_event_t *e)
+{
+    lv_obj_t *target = lv_event_get_target(e);
+
+    if (bambuStatus.ams_exist_bits==0){
+        lv_obj_add_flag(target, LV_OBJ_FLAG_HIDDEN);
+    }else{
+        lv_obj_clear_flag(target, LV_OBJ_FLAG_HIDDEN);
+    }
+}
 void ui_filamentComponent_onAMSBits(lv_event_t *e)
 {
     lv_obj_t *target = lv_event_get_target(e);
@@ -204,7 +214,7 @@ lv_obj_t *ui_filamentComponent_create(lv_obj_t *comp_parent)
     lv_obj_t *cui_AmsControl;
     cui_AmsControl = lv_obj_create(cui_filamentComponent);
     lv_obj_set_width(cui_AmsControl, lv_pct(100));
-    lv_obj_set_height(cui_AmsControl, lv_pct(25));
+    lv_obj_set_height(cui_AmsControl, lv_pct(100));
     lv_obj_set_flex_grow(cui_AmsControl, 1);
     lv_obj_set_x(cui_AmsControl, 386);
     lv_obj_set_y(cui_AmsControl, 178);
@@ -226,7 +236,7 @@ lv_obj_t *ui_filamentComponent_create(lv_obj_t *comp_parent)
 
     lv_obj_t *cui_filamentControlComponent;
     cui_filamentControlComponent = lv_obj_create(cui_filamentComponent);
-    lv_obj_set_height(cui_filamentControlComponent, lv_pct(75));
+    lv_obj_set_height(cui_filamentControlComponent, lv_pct(100));
     lv_obj_set_width(cui_filamentControlComponent, lv_pct(100));
     lv_obj_set_flex_grow(cui_filamentControlComponent, 4);
     lv_obj_set_x(cui_filamentControlComponent, 386);
@@ -570,6 +580,23 @@ lv_obj_t *ui_filamentComponent_create(lv_obj_t *comp_parent)
 
     lv_obj_add_event_cb(cui_AmsSlot4, ui_event_comp_filamentComponent_onAmsUpdate, LV_EVENT_MSG_RECEIVED, 4);
     lv_msg_subsribe_obj(XTOUCH_ON_AMS_SLOT_UPDATE, cui_AmsSlot4, 4);
+
+    
+    lv_obj_add_event_cb(cui_AmsControl, ui_filamentComponent_onAMSBitsSlot, LV_EVENT_MSG_RECEIVED, NULL);
+    lv_msg_subsribe_obj(XTOUCH_ON_AMS_BITS, cui_AmsControl, NULL);
+    
+    lv_obj_add_event_cb(cui_AmsSlot1, ui_filamentComponent_onAMSBitsSlot, LV_EVENT_MSG_RECEIVED, NULL);
+    lv_msg_subsribe_obj(XTOUCH_ON_AMS_BITS, cui_AmsSlot1, NULL);
+    
+    lv_obj_add_event_cb(cui_AmsSlot2, ui_filamentComponent_onAMSBitsSlot, LV_EVENT_MSG_RECEIVED, NULL);
+    lv_msg_subsribe_obj(XTOUCH_ON_AMS_BITS, cui_AmsSlot2, NULL);
+
+    lv_obj_add_event_cb(cui_AmsSlot3, ui_filamentComponent_onAMSBitsSlot, LV_EVENT_MSG_RECEIVED, NULL);
+    lv_msg_subsribe_obj(XTOUCH_ON_AMS_BITS, cui_AmsSlot3, NULL);
+
+    lv_obj_add_event_cb(cui_AmsSlot4, ui_filamentComponent_onAMSBitsSlot, LV_EVENT_MSG_RECEIVED, NULL);
+    lv_msg_subsribe_obj(XTOUCH_ON_AMS_BITS, cui_AmsSlot4, NULL);
+
     
     lv_obj_add_event_cb(cui_AmsSlot1, ui_event_comp_filamentComponent_amsLoad, LV_EVENT_ALL, 1);
     lv_obj_add_event_cb(cui_AmsSlot2, ui_event_comp_filamentComponent_amsLoad, LV_EVENT_ALL, 2);
