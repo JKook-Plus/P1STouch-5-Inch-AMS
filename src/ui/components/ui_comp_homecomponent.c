@@ -293,7 +293,7 @@ void onXTouchNozzleTempTarget(lv_event_t *e)
 void onXTouchFilenameUpdate(lv_event_t *e)
 {
 
-    if (strcmp(last_gcode_file,bambuStatus.gcode_file)==0) return;
+    
     lv_obj_t **comp_homeComponent = lv_event_get_user_data(e);
     lv_obj_t *target = lv_event_get_target(e);
     lv_label_set_text(target, bambuStatus.gcode_file);
@@ -304,7 +304,9 @@ void onXTouchFilenameUpdate(lv_event_t *e)
 
     // lv_obj_set_x(target, 30);
     // lv_obj_set_x(target, lv_obj_get_width(cui_mainScreenCentral)-lv_obj_get_width(target)-30);
-
+    
+    if (strcmp(last_gcode_file,bambuStatus.gcode_file)==0) return;
+    
     lv_anim_t a;
     lv_anim_init(&a);
     lv_anim_set_var(&a, target);
