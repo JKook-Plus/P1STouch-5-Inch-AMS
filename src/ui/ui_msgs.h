@@ -27,6 +27,8 @@ extern "C"
         XTOUCH_ON_ERROR,
         XTOUCH_ON_SSDP,
         XTOUCH_ON_AMS_SLOT_UPDATE,
+        XTOUCH_ON_AMS_STATE_UPDATE,
+        XTOUCH_ON_AMS_HUMIDITY_UPDATE,
         XTOUCH_ON_FILENAME_UPDATE,
         XTOUCH_ON_CLOUD_SELECT,
         XTOUCH_ON_CODE_ENTERED,
@@ -71,10 +73,10 @@ extern "C"
 
     };
 
-    struct XTOUCH_MESSAGE_DATA
+    typedef struct XTOUCH_MESSAGE_DATA
     {
         unsigned long long data;
-    };
+    } XTOUCH_MESSAGE_DATA;
 
 #ifdef __cplusplus
 } /*extern "C"*/
