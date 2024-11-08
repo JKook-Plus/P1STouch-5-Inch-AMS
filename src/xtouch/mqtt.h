@@ -36,7 +36,7 @@ XtouchAutoGrowBufferStream stream;
 
 void xtouch_mqtt_sendMsg(XTOUCH_MESSAGE message, unsigned long long data = 0)
 {
-    XTOUCH_MESSAGE_DATA eventData;
+    struct XTOUCH_MESSAGE_DATA eventData;
     eventData.data = data;
     lv_msg_send(message, &eventData);
 }
@@ -50,12 +50,13 @@ void xtouch_mqtt_topic_setup()
 
 void xtouch_mqtt_parse_tray(uint8_t tray_idx, char* color,int loaded){
 
-    unsigned long long number = strtoll(color, NULL, 16);
+    uint64_t number = strtoll(color, NULL, 16);
     number<<=8;
     number|=tray_idx<<4;
     number|=loaded;
 
-    xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_SLOT_UPDATE,number);
+    set_tray_status(tray_idx,number);
+
 }
 
 String xtouch_mqtt_parse_printer_type(String type_str)
@@ -89,7 +90,7 @@ void xtouch_mqtt_update_slice_info(const char *project_id, const char *profile_i
 void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
 {
     xtouch_mqtt_lastPushStatus = millis();
-    ConsoleDebug.println(F("[P1Stouch][MQTT] ProcessPushStatus"));
+    // ConsoleDebug.println(F("[P1Stouch][MQTT] ProcessPushStatus"));
 
     if (incomingJson != NULL && incomingJson.containsKey("print"))
     {
@@ -367,7 +368,7 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
 
             if (incomingJson["print"]["lights_report"][0].containsKey("mode"))
             {
-                XTOUCH_MESSAGE_DATA eventData;
+                struct XTOUCH_MESSAGE_DATA eventData;
                 if (incomingJson["print"]["lights_report"][0]["mode"] == "on")
                 {
                     bambuStatus.chamberLed = true;
@@ -495,37 +496,37 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
                 xtouch_ams_parse_status(ams_status);
             }
 
-            
-
             if (incomingJson["print"]["ams"].containsKey("tray_pre"))
             {
                 bambuStatus.m_tray_pre = incomingJson["print"]["ams"]["tray_pre"].as<int>();
-                xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_SLOT_UPDATE,0xFFFFFFFF);
             }
 
             if (incomingJson["print"]["ams"].containsKey("tray_now"))
             {
                 bambuStatus.m_tray_now = incomingJson["print"]["ams"]["tray_now"].as<int>();
-                xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_SLOT_UPDATE,0xFFFFFFFF);
             }
             if (incomingJson["print"]["ams"].containsKey("ams"))
             {
 
-                JsonArray array = incomingJson["print"]["ams"]["ams"].as<JsonArray>();
-                bambuStatus.ams = array.size() > 0;
-                xtouch_mqtt_sendMsg(XTOUCH_ON_AMS, array.size() > 0 ? 1 : 0);
+                JsonArray ams_list = incomingJson["print"]["ams"]["ams"].as<JsonArray>();
+                bambuStatus.ams = ams_list.size() > 0;
+                xtouch_mqtt_sendMsg(XTOUCH_ON_AMS, ams_list.size() > 0 ? 1 : 0);
 
-                long int last_ams_exist_bits = bambuStatus.ams_exist_bits;
-                long int last_tray_exist_bits = bambuStatus.tray_exist_bits;
-                long int last_is_bbl_bits = bambuStatus.tray_is_bbl_bits;
-                long int last_read_done_bits = bambuStatus.tray_read_done_bits;
-                long int last_ams_version = bambuStatus.ams_version;
+                    
+                if (ams_list[0].containsKey("humidity"))
+                {
+                    bambuStatus.ams_humidity =6-ams_list[0]["humidity"].as<int>();
+                    printf("AMS humidity: %d\n",bambuStatus.ams_humidity);
+                    xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_HUMIDITY_UPDATE,0);
+
+                }
+
 
                 char color[16];
                 char traytype[16];
                 
-                for (uint8_t ams_idx=0;ams_idx<array.size();ams_idx++){
-                    JsonArray trays = array[ams_idx]["tray"].as<JsonArray>();
+                for (uint8_t ams_idx=0;ams_idx<ams_list.size();ams_idx++){
+                    JsonArray trays = ams_list[ams_idx]["tray"].as<JsonArray>();
                     for (uint8_t tray_idx=0;tray_idx<trays.size();tray_idx++){
                         memset(color,0,16);
                         memset(traytype,0,16);
@@ -536,6 +537,8 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
                         xtouch_mqtt_parse_tray(tray_idx+1,color,trays[tray_idx]["n"].as<int>());
 
                         set_tray_type(tray_idx+1,traytype);
+
+                        set_tray_temp(tray_idx+1,(trays[tray_idx]["nozzle_temp_max"].as<int>()+trays[tray_idx]["nozzle_temp_min"].as<int>())/2);
                         
                     }
                 }
@@ -574,7 +577,6 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
                 {
                     bambuStatus.m_tray_tar = incomingJson["print"]["ams"]["tray_tar"].as<int>();
                     
-                    xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_SLOT_UPDATE,0xFFFFFFFF);
                 }
                 
 
@@ -615,12 +617,16 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
                     }
                 }
 
-                if (bambuStatus.ams_exist_bits != last_ams_exist_bits || last_tray_exist_bits != last_tray_exist_bits || bambuStatus.tray_is_bbl_bits != last_is_bbl_bits || bambuStatus.tray_read_done_bits != last_read_done_bits || last_ams_version != bambuStatus.ams_version)
-                {
-                    bambuStatus.is_ams_need_update = true;
-                    xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_BITS, 0);
-                }
             }
+
+        
+            xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_BITS, 0);
+            printf("send onAmsState\n");
+            xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_STATE_UPDATE,0);
+            printf("send onAmsUpdate\n");
+            xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_SLOT_UPDATE,0);
+            printf("AMS status main %d\n",bambuStatus.ams_status_main);
+            printf("AMS status sub  %d\n",bambuStatus.ams_status_sub);
         }
 
         // vt_tray
@@ -660,25 +666,16 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
 }
 
 
-char payload_buffer[8096];
 void xtouch_mqtt_parseMessage(char *topic, byte *payload, unsigned int length, byte type = 0)
 {
 
-    ConsoleDebug.println(F("[P1Stouch][MQTT] ParseMessage"));
+    // ConsoleDebug.println(F("[P1Stouch][MQTT] ParseMessage"));
     DynamicJsonDocument incomingJson(XTOUCH_MQTT_SERVER_JSON_PARSE_SIZE);
 
     DynamicJsonDocument amsFilter(128);
     amsFilter["print"]["*"] = true;
     amsFilter["camera"]["*"] = true;
     amsFilter["print"]["ams"] = true;
-
-    memset(payload_buffer,0,8096);
-    strncpy(payload_buffer,(char*)payload,length);
-
-
-
-    printf("%s\n",payload);
-
 
     auto deserializeError = deserializeJson(incomingJson, payload, length, DeserializationOption::Filter(amsFilter));
 
@@ -698,7 +695,6 @@ void xtouch_mqtt_parseMessage(char *topic, byte *payload, unsigned int length, b
 
             String command = incomingJson["print"]["command"].as<String>();
 
-            printf("got command %s\n",command);
         }
 
         if (incomingJson.containsKey("print") && incomingJson["print"].containsKey("command"))
@@ -706,7 +702,6 @@ void xtouch_mqtt_parseMessage(char *topic, byte *payload, unsigned int length, b
 
             String command = incomingJson["print"]["command"].as<String>();
 
-            printf("got command %s\n",command);
             if (command == "push_status")
             {
                 xtouch_mqtt_processPushStatus(incomingJson);
@@ -714,13 +709,13 @@ void xtouch_mqtt_parseMessage(char *topic, byte *payload, unsigned int length, b
             if (command == "ams_change_filament")
             {
                 bambuStatus.m_tray_tar=incomingJson["target"].as<int>();
-                printf("target tray is %d\n",bambuStatus.m_tray_tar);
-                xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_SLOT_UPDATE,0xFFFFFFFF);
+                printf("send onAmsUpdate\n");
+                xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_SLOT_UPDATE,0);
             }
             else if (command == "gcode_line")
             {
-                ConsoleDebug.println(F("[P1Stouch][MQTT] gcode_line ack"));
-                ConsoleDebug.println(String((char *)payload));
+                // ConsoleDebug.println(F("[P1Stouch][MQTT] gcode_line ack"));
+                // ConsoleDebug.println(String((char *)payload));
             }
 
             // project_file
@@ -961,7 +956,7 @@ void xtouch_mqtt_loop()
     xtouch_pubSubClient.loop();
     if (!xtouch_pubSubClient.connected())
     {
-        Serial.println("π-----DISCONNECTED-----");
+        Serial.println("-----DISCONNECTED-----");
         xtouch_mqtt_connect();
         return;
     }

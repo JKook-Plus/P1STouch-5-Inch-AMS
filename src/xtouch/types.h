@@ -110,7 +110,6 @@ extern "C"
         bool ams_power_on_flag;
         bool ams_calibrate_remain_flag;
         bool ams_support_virtual_tray;
-        bool is_ams_need_update;
         long tray_exist_bits;
         long tray_is_bbl_bits;
         long tray_read_done_bits;
@@ -119,6 +118,7 @@ extern "C"
         int m_tray_id;  // local tray id : "0" ~ "3"
         int m_tray_now; // tray_now : "0" ~ "15" or "254", "255"
         int m_tray_pre; // tray_now : "0" ~ "15" or "254", "255"
+        int m_humidity; // humidity : "1" ~ "5"
         int m_tray_tar; // tray_tar : "0" ~ "15" or "255"
 
     } XTouchBambuStatus;
