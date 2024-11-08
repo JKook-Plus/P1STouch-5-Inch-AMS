@@ -81,7 +81,6 @@ extern "C"
 
   LV_FONT_DECLARE(ui_font_xlcd);
   LV_FONT_DECLARE(ui_font_xlcdmin);
-  LV_FONT_DECLARE(ui_font_xperiments);
   LV_FONT_DECLARE(ui_font_xlcd48);
 
   extern const lv_font_t *lv_font_small;

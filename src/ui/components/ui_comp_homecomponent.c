@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "../ui.h"
 #include "../ui_msgs.h"
+#include "../../xtouch/trays.h"
 #include "xtouch/globals.h"
 #include <time.h>
 
@@ -9,8 +10,7 @@
 #define AMS_BORDER 3
 
 extern int time12hFormat;
-unsigned long long slot_cache[SLOT_COUNT];
-
+char last_gcode_file[128];
 char bed_target[10];
 char nozzle_target[10];
 const char *xtouch_device_get_print_state()
@@ -26,6 +26,11 @@ const char *xtouch_device_get_print_state()
     default:
         return "N/A";
     }
+}
+
+static void set_x(void * var, int32_t v)
+{
+    lv_obj_set_x(var, v);
 }
 
 int get_delta_days(time_t time_end_time, time_t time_now)
@@ -49,11 +54,11 @@ int get_delta_days(time_t time_end_time, time_t time_now)
     time_now = mktime(&tm_now);
     localtime_r(&time_now, &tm_now);
 
-    printf("end: %04d-%02d-%02d %02d:%02d:%02d\n",
-           tm_end_time.tm_year + 1900, tm_end_time.tm_mon + 1, tm_end_time.tm_mday, tm_end_time.tm_hour, tm_end_time.tm_min, tm_end_time.tm_sec);
+    // printf("end: %04d-%02d-%02d %02d:%02d:%02d\n",
+    //        tm_end_time.tm_year + 1900, tm_end_time.tm_mon + 1, tm_end_time.tm_mday, tm_end_time.tm_hour, tm_end_time.tm_min, tm_end_time.tm_sec);
 
-    printf("now: %04d-%02d-%02d %02d:%02d:%02d\n",
-           tm_now.tm_year + 1900, tm_now.tm_mon + 1, tm_now.tm_mday, tm_now.tm_hour, tm_now.tm_min, tm_now.tm_sec);
+    // printf("now: %04d-%02d-%02d %02d:%02d:%02d\n",
+    //        tm_now.tm_year + 1900, tm_now.tm_mon + 1, tm_now.tm_mday, tm_now.tm_hour, tm_now.tm_min, tm_now.tm_sec);
 
     return difftime(time_end_time, time_now) / (24 * 60 * 60);
 }
@@ -167,16 +172,6 @@ void onXTouchLightMessage(lv_event_t *e)
     }
 }
 
-void reloadAMS()
-{
-    for (uint8_t slot = 0; slot < SLOT_COUNT; slot++)
-    {
-        struct XTOUCH_MESSAGE_DATA eventData;
-        eventData.data = slot_cache[slot];
-        lv_msg_send(XTOUCH_ON_AMS_SLOT_UPDATE, &eventData);
-    }
-}
-
 void onXTouchAMSUpdate(lv_event_t *e)
 {
 
@@ -186,37 +181,33 @@ void onXTouchAMSUpdate(lv_event_t *e)
 
     struct XTOUCH_MESSAGE_DATA *message = (struct XTOUCH_MESSAGE_DATA *)m->payload;
 
-    if (message->data == 0xFFFFFFFF)
-    {
-        reloadAMS();
-        return;
-    }
-
-    uint16_t tray_id = ((message->data >> 4) & 0x0F);
-    uint16_t loaded = ((message->data) & 0x01);
+    uint32_t tray_status = get_tray_status(user_data);
+    uint16_t tray_id = ((tray_status >> 4) & 0x0F);
+    uint16_t loaded = ((tray_status) & 0x01);
+    
 
     if (user_data == tray_id)
     {
-        lv_color_t color = lv_color_hex(message->data >> 8);
-        lv_color_t color_inv = lv_color_hex((0xFFFFFF - (message->data >> 8)) & 0xFFFFFF);
+        lv_color_t color = lv_color_hex(tray_status >> 8);
+        lv_color_t color_inv = lv_color_hex((0xFFFFFF - (tray_status >> 8)) & 0xFFFFFF);
 
         // printf(" tray_now: %d, tray_tar: %d, slot: %d, color: %06llX \n", bambuStatus.m_tray_now, bambuStatus.m_tray_tar, tray_id, message->data >> 8);
 
-        slot_cache[tray_id] = message->data;
         lv_obj_set_style_bg_color(target, color, LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_obj_set_style_text_color(target, color_inv, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-        lv_obj_set_style_border_color(target, color_inv, LV_PART_MAIN | LV_STATE_DEFAULT);
 
         if (tray_id == 0)
             tray_id = 254 + 1;
 
         lv_obj_set_style_border_color(target, color, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(target, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
         if (bambuStatus.m_tray_now + 1 == tray_id)
         {
             lv_label_set_text(target, "L");
             lv_obj_set_style_border_color(target, color_inv, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_border_width(target, AMS_BORDER, LV_PART_MAIN | LV_STATE_DEFAULT);
         }
         else if (bambuStatus.m_tray_pre + 1 == tray_id && bambuStatus.m_tray_pre != bambuStatus.m_tray_tar)
         {
@@ -302,8 +293,33 @@ void onXTouchNozzleTempTarget(lv_event_t *e)
 void onXTouchFilenameUpdate(lv_event_t *e)
 {
 
+    
+    lv_obj_t **comp_homeComponent = lv_event_get_user_data(e);
     lv_obj_t *target = lv_event_get_target(e);
     lv_label_set_text(target, bambuStatus.gcode_file);
+    // lv_label_set_text(target, "#__0____1____2____3____4____5____6____7____8____9__#");
+    lv_obj_update_layout(target);
+    lv_obj_t *cui_mainScreenCentral=comp_homeComponent[UI_COMP_HOMECOMPONENT_MAINSCREENLEFT_MAINSCREENCENTRAL];
+    
+
+    // lv_obj_set_x(target, 30);
+    // lv_obj_set_x(target, lv_obj_get_width(cui_mainScreenCentral)-lv_obj_get_width(target)-30);
+    
+    if (strcmp(last_gcode_file,bambuStatus.gcode_file)==0) return;
+    
+    lv_anim_t a;
+    lv_anim_init(&a);
+    lv_anim_set_var(&a, target);
+    lv_anim_set_values(&a, 30, lv_obj_get_width(cui_mainScreenCentral)-lv_obj_get_width(target)-30);
+    lv_anim_set_time(&a, strlen(bambuStatus.gcode_file)*250);
+    lv_anim_set_repeat_count(&a, LV_ANIM_REPEAT_INFINITE);
+    lv_anim_set_repeat_delay(&a, 1000);
+    lv_anim_set_exec_cb(&a, set_x);
+    lv_anim_start(&a);
+
+    memset(last_gcode_file,0,128);
+
+    strcpy(last_gcode_file,bambuStatus.gcode_file);
 }
 
 void onXTouchAMS(lv_event_t *e)
@@ -1330,10 +1346,16 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
     lv_obj_add_event_cb(cui_mainScreenTimeLeft, onXTouchPrintStatus, LV_EVENT_MSG_RECEIVED, children);
     lv_msg_subsribe_obj(XTOUCH_ON_PRINT_STATUS, cui_mainScreenTimeLeft, NULL);
 
+    // lv_obj_add_event_cb(cui_mainScreenFileName, onXTouchFilenameUpdate, LV_EVENT_MSG_RECEIVED, children);
+    // lv_msg_subsribe_obj(XTOUCH_ON_FILENAME_UPDATE, cui_mainScreenFileName, children);
+
+
     ui_comp_homeComponent_create_hook(cui_homeComponent);
 
-    reloadAMS();
-    // lv_label_set_text(cui_mainScreenFileName, bambuStatus.gcode_file);
+    struct XTOUCH_MESSAGE_DATA eventData;
+    eventData.data = 0;
+    lv_msg_send(XTOUCH_ON_AMS_SLOT_UPDATE, &eventData);
+    lv_msg_send(XTOUCH_ON_FILENAME_UPDATE, &eventData);
 
     if (bambuStatus.has_ipcam)
     {

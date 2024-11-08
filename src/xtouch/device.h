@@ -2,80 +2,97 @@
 #define _XLCD_DEVICE
 
 #include <Arduino.h>
+#include "trays.h"
 
 #define XTOUCH_DEVICE_CONTROL_MOVE_SPEED_XY 3000
 #define XTOUCH_DEVICE_CONTROL_MOVE_SPEED_Z 1500
 
 
 
-char ams_gcode_buffer[700];
+char ams_gcode_buffer[2048];
 
 const char* ams_load_gcode="M620 S%d\n"
+"M106 S255\n"
 "M104 S250\n"
-"G28 X\n"
+"M17 S\n"
+"M17 X0.5 Y0.5\n"
 "G91\n"
-"G1 Z3.0 F1200\n"
+"G1 Y-5 F1200\n"
+"G1 Z3\n"
 "G90\n"
-"G1 X70 F12000\n"
+"G28 X\n"
+"M17 R\n"
+"G1 X70 F21000\n"
 "G1 Y245\n"
 "G1 Y265 F3000\n"
+"G4\n"
+"M106 S0\n"
 "M109 S250\n"
-"G1 X120 F12000\n"
-"G1 X20 Y50 F12000\n"
+"G1 X90\n"
+"G1 Y255\n"
+"G1 X120\n"
+"G1 X20 Y50 F21000\n"
 "G1 Y-3\n"
 "T%d\n"
-"G1 X54  F12000\n"
+"G1 X54\n"
 "G1 Y265\n"
-"M400\n"
-"M106 P1 S0\n"
 "G92 E0\n"
-"G1 E40 F200\n"
-"M400\n"
-"M109 S%d\n"
-"M400\n"
-"M106 P1 S255\n"
-"G92 E0\n"
-"G1 E5 F300\n"
-"M400\n"
-"M106 P1 S0\n"
-"G1 X70  F9000\n"
-"G1 X76 F15000\n"
-"G1 X65 F15000\n"
-"G1 X76 F15000\n"
-"G1 X65 F15000\n"
-"G1 X70 F6000\n"
-"G1 X100 F5000\n"
+"G1 E40 F180\n"
+"G4\n"
+"M104 S%d\n"
 "G1 X70 F15000\n"
+"G1 X76\n"
+"G1 X65\n"
+"G1 X76\n"
+"G1 X65\n"
+"G1 X90 F3000\n"
+"G1 Y255\n"
+"G1 X100\n"
+"G1 Y265\n"
+"G1 X70 F10000\n"
 "G1 X100 F5000\n"
-"G1 X70 F15000\n"
-"G1 X165 F5000\n"
+"G1 X70 F10000\n"
+"G1 X100 F5000\n"
+"G1 X165 F12000\n"
 "G1 Y245\n"
+"G1 X70\n"
+"G1 Y265 F3000\n"
 "G91\n"
-"G1 Z-3.0 F1200\n"
+"G1 Z-3 F1200\n"
 "G90\n"
-"M621 S%d";
+"M621 S%d\n";
 
 const char* ams_unload_gcode="M620 S255\n"
+"M106 P1 S255\n"
 "M104 S250\n"
-"G28 X\n"
+"M17 S\n"
+"M17 X0.5 Y0.5\n"
 "G91\n"
-"G1 Z3.0 F1200\n"
+"G1 Y-5 F3000\n"
+"G1 Z3 F1200\n"
 "G90\n"
-"G1 X70 F12000\n"
+"G28 X\n"
+"M17 R\n"
+"G1 X70 F21000\n"
 "G1 Y245\n"
 "G1 Y265 F3000\n"
+"G4\n"
+"M106 P1 S0\n"
 "M109 S250\n"
-"G1 X120 F12000\n"
-"G1 X20 Y50 F12000\n"
+"G1 X90 F3000\n"
+"G1 Y255 F4000\n"
+"G1 X100 F5000\n"
+"G1 X120 F21000\n"
+"G1 X20 Y50\n"
 "G1 Y-3\n"
 "T255\n"
-"M104 S25\n"
-"G1 X165 F5000\n"
-"G1 Y245\n"
+"G4\n"
+"M104 S0\n"
+"G1 X70 F3000\n"
 "G91\n"
-"G1 Z-3.0 F1200\n"
+"G1 Z-3 F1200\n"
 "G90\n"
-"M621 S255";
+"M621 S255\n";
 
 
 uint32_t xtouch_device_sequence_id = 0;
@@ -384,24 +401,37 @@ void xtouch_device_command_ams_control(void *s, lv_msg_t *m)
 
 
 void xtouch_device_command_ams_load(void *s, lv_msg_t *m){
-    printf("tray now: %d\n",bambuStatus.m_tray_now);
     uint16_t slot =*((uint16_t*) &m->payload)-1;
     if (bambuStatus.m_tray_now==slot){
         return;
     }
+    bambuStatus.ams_status_main = AMS_STATUS_MAIN_FILAMENT_CHANGE;
+    struct XTOUCH_MESSAGE_DATA eventData;
+    eventData.data = 0;
+    lv_msg_send(XTOUCH_ON_AMS_SLOT_UPDATE, &eventData);
+    lv_msg_send(XTOUCH_ON_AMS_STATE_UPDATE, &eventData);
+    
     if (bambuStatus.m_tray_now!=254){
         xtouch_device_gcode_line(ams_unload_gcode);
     }
     memset(ams_gcode_buffer,0,700);
-    sprintf(ams_gcode_buffer,ams_load_gcode,slot,slot,bambuStatus.nozzle_target_temper,slot);
-    printf(ams_gcode_buffer);
+    sprintf(ams_gcode_buffer,ams_load_gcode,slot,slot,get_tray_temp(slot),slot);
     xtouch_device_gcode_line(ams_gcode_buffer);
+
 }
 
 void xtouch_device_command_ams_unload(void *s, lv_msg_t *m){
     if (bambuStatus.m_tray_now>15){
         return;
     }
+    printf("AMS unload\n");
+    
+    bambuStatus.ams_status_main = AMS_STATUS_MAIN_FILAMENT_CHANGE;
+    struct XTOUCH_MESSAGE_DATA eventData;
+    eventData.data = 0;
+    lv_msg_send(XTOUCH_ON_AMS_SLOT_UPDATE, &eventData);
+    lv_msg_send(XTOUCH_ON_AMS_STATE_UPDATE, &eventData);
+
     xtouch_device_gcode_line(ams_unload_gcode);
 }
 
