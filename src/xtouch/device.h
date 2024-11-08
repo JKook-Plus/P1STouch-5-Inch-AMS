@@ -406,7 +406,7 @@ void xtouch_device_command_ams_load(void *s, lv_msg_t *m){
         return;
     }
     bambuStatus.ams_status_main = AMS_STATUS_MAIN_FILAMENT_CHANGE;
-    XTOUCH_MESSAGE_DATA eventData;
+    struct XTOUCH_MESSAGE_DATA eventData;
     eventData.data = 0;
     lv_msg_send(XTOUCH_ON_AMS_SLOT_UPDATE, &eventData);
     lv_msg_send(XTOUCH_ON_AMS_STATE_UPDATE, &eventData);
@@ -427,7 +427,7 @@ void xtouch_device_command_ams_unload(void *s, lv_msg_t *m){
     printf("AMS unload\n");
     
     bambuStatus.ams_status_main = AMS_STATUS_MAIN_FILAMENT_CHANGE;
-    XTOUCH_MESSAGE_DATA eventData;
+    struct XTOUCH_MESSAGE_DATA eventData;
     eventData.data = 0;
     lv_msg_send(XTOUCH_ON_AMS_SLOT_UPDATE, &eventData);
     lv_msg_send(XTOUCH_ON_AMS_STATE_UPDATE, &eventData);

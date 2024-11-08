@@ -1350,7 +1350,7 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
 
     ui_comp_homeComponent_create_hook(cui_homeComponent);
 
-    XTOUCH_MESSAGE_DATA eventData;
+    struct XTOUCH_MESSAGE_DATA eventData;
     eventData.data = 0;
     lv_msg_send(XTOUCH_ON_AMS_SLOT_UPDATE, &eventData);
     lv_msg_send(XTOUCH_ON_FILENAME_UPDATE, &eventData);

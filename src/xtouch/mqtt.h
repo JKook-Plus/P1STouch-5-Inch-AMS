@@ -36,7 +36,7 @@ XtouchAutoGrowBufferStream stream;
 
 void xtouch_mqtt_sendMsg(XTOUCH_MESSAGE message, unsigned long long data = 0)
 {
-    XTOUCH_MESSAGE_DATA eventData;
+    struct XTOUCH_MESSAGE_DATA eventData;
     eventData.data = data;
     lv_msg_send(message, &eventData);
 }
@@ -368,7 +368,7 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
 
             if (incomingJson["print"]["lights_report"][0].containsKey("mode"))
             {
-                XTOUCH_MESSAGE_DATA eventData;
+                struct XTOUCH_MESSAGE_DATA eventData;
                 if (incomingJson["print"]["lights_report"][0]["mode"] == "on")
                 {
                     bambuStatus.chamberLed = true;

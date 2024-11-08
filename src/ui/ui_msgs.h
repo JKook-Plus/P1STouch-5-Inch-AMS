@@ -73,10 +73,10 @@ extern "C"
 
     };
 
-    typedef struct XTOUCH_MESSAGE_DATA
+    struct XTOUCH_MESSAGE_DATA
     {
         unsigned long long data;
-    } XTOUCH_MESSAGE_DATA;
+    };
 
 #ifdef __cplusplus
 } /*extern "C"*/
