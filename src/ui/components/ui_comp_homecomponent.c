@@ -317,6 +317,8 @@ void onXTouchFilenameUpdate(lv_event_t *e)
     lv_anim_set_exec_cb(&a, set_x);
     lv_anim_start(&a);
 
+    memset(last_gcode_file,0,128);
+
     strcpy(last_gcode_file,bambuStatus.gcode_file);
 }
 
