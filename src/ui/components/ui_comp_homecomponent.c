@@ -10,7 +10,7 @@
 #define AMS_BORDER 3
 
 extern int time12hFormat;
-
+char last_gcode_file[128];
 char bed_target[10];
 char nozzle_target[10];
 const char *xtouch_device_get_print_state()
@@ -26,6 +26,11 @@ const char *xtouch_device_get_print_state()
     default:
         return "N/A";
     }
+}
+
+static void set_x(void * var, int32_t v)
+{
+    lv_obj_set_x(var, v);
 }
 
 int get_delta_days(time_t time_end_time, time_t time_now)
@@ -288,8 +293,29 @@ void onXTouchNozzleTempTarget(lv_event_t *e)
 void onXTouchFilenameUpdate(lv_event_t *e)
 {
 
+    if (strcmp(last_gcode_file,bambuStatus.gcode_file)==0) return;
+    lv_obj_t **comp_homeComponent = lv_event_get_user_data(e);
     lv_obj_t *target = lv_event_get_target(e);
     lv_label_set_text(target, bambuStatus.gcode_file);
+    // lv_label_set_text(target, "#__0____1____2____3____4____5____6____7____8____9__#");
+    lv_obj_update_layout(target);
+    lv_obj_t *cui_mainScreenCentral=comp_homeComponent[UI_COMP_HOMECOMPONENT_MAINSCREENLEFT_MAINSCREENCENTRAL];
+    
+
+    // lv_obj_set_x(target, 30);
+    // lv_obj_set_x(target, lv_obj_get_width(cui_mainScreenCentral)-lv_obj_get_width(target)-30);
+
+    lv_anim_t a;
+    lv_anim_init(&a);
+    lv_anim_set_var(&a, target);
+    lv_anim_set_values(&a, 30, lv_obj_get_width(cui_mainScreenCentral)-lv_obj_get_width(target)-30);
+    lv_anim_set_time(&a, strlen(bambuStatus.gcode_file)*250);
+    lv_anim_set_repeat_count(&a, LV_ANIM_REPEAT_INFINITE);
+    lv_anim_set_repeat_delay(&a, 1000);
+    lv_anim_set_exec_cb(&a, set_x);
+    lv_anim_start(&a);
+
+    strcpy(last_gcode_file,bambuStatus.gcode_file);
 }
 
 void onXTouchAMS(lv_event_t *e)
@@ -967,13 +993,13 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_width(cui_mainScreenFileName, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(cui_mainScreenFileName, LV_SIZE_CONTENT); /// 1
     lv_obj_set_align(cui_mainScreenFileName, LV_ALIGN_LEFT_MID);
+    lv_obj_add_flag(cui_mainScreenFileName, LV_OBJ_FLAG_FLOATING);
     lv_obj_set_style_text_align(cui_mainScreenFileName, LV_TEXT_ALIGN_LEFT, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_label_set_text(cui_mainScreenFileName, "");
     lv_obj_set_style_text_font(cui_mainScreenFileName, &lv_font_montserrat_24, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_add_event_cb(cui_mainScreenFileName, onXTouchFilenameUpdate, LV_EVENT_MSG_RECEIVED, NULL);
-    lv_msg_subsribe_obj(XTOUCH_ON_FILENAME_UPDATE, cui_mainScreenFileName, NULL);
 
+        
     // lv_obj_t *cui_mainScreenSpeedIcon;
     // cui_mainScreenSpeedIcon = lv_label_create(cui_mainScreenCentral);
     // lv_obj_set_width(cui_mainScreenSpeedIcon, LV_SIZE_CONTENT);  /// 50
@@ -1314,13 +1340,16 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
     lv_obj_add_event_cb(cui_mainScreenTimeLeft, onXTouchPrintStatus, LV_EVENT_MSG_RECEIVED, children);
     lv_msg_subsribe_obj(XTOUCH_ON_PRINT_STATUS, cui_mainScreenTimeLeft, NULL);
 
+    lv_obj_add_event_cb(cui_mainScreenFileName, onXTouchFilenameUpdate, LV_EVENT_MSG_RECEIVED, children);
+    lv_msg_subsribe_obj(XTOUCH_ON_FILENAME_UPDATE, cui_mainScreenFileName, children);
+
+
     ui_comp_homeComponent_create_hook(cui_homeComponent);
 
     XTOUCH_MESSAGE_DATA eventData;
     eventData.data = 0;
     lv_msg_send(XTOUCH_ON_AMS_SLOT_UPDATE, &eventData);
-
-    lv_label_set_text(cui_mainScreenFileName, bambuStatus.gcode_file);
+    lv_msg_send(XTOUCH_ON_FILENAME_UPDATE, &eventData);
 
     if (bambuStatus.has_ipcam)
     {
