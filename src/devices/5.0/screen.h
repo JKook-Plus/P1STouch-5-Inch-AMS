@@ -84,7 +84,7 @@ public:
     {
       auto cfg = _light_instance.config();
       cfg.pin_bl = GPIO_NUM_2;
-      cfg.freq = 1250;
+      cfg.freq = 250;
       _light_instance.config(cfg);
     }
     _panel_instance.light(&_light_instance);
@@ -276,7 +276,7 @@ void xtouch_screen_setup()
 
     xtouch_screen_setupTFTFlip();
 
-    xtouch_screen_setBrightness(255);
+    xtouch_screen_setBrightness(128);
 
     lv_init();
 
