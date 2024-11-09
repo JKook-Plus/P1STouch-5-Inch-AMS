@@ -32,7 +32,7 @@ void xtouch_settings_loadSettings()
     if (!xtouch_filesystem_exist(SD, xtouch_paths_settings))
     {
         DynamicJsonDocument doc(256);
-        xTouchConfig.xTouchBacklightLevel = 255;
+        xTouchConfig.xTouchBacklightLevel = 128;
         xTouchConfig.xTouchTFTOFFValue = 15;
         xTouchConfig.xTouchTFTInvert = false;
         xTouchConfig.xTouchWakeOnPrint = true;
