@@ -7,7 +7,6 @@ void xtouch_settings_save(bool onlyRoot = false)
     doc["backlight"] = xTouchConfig.xTouchBacklightLevel;
     doc["tftOff"] = xTouchConfig.xTouchTFTOFFValue;
     doc["tftInvert"] = false;
-    doc["ota"] = xTouchConfig.xTouchOTAEnabled;
     doc["wop"] = xTouchConfig.xTouchWakeOnPrint;
     doc["chamberTempDiff"] = xTouchConfig.xTouchChamberSensorReadingDiff;
 
@@ -36,7 +35,6 @@ void xtouch_settings_loadSettings()
         xTouchConfig.xTouchBacklightLevel = 128;
         xTouchConfig.xTouchTFTOFFValue = 15;
         xTouchConfig.xTouchTFTInvert = false;
-        xTouchConfig.xTouchOTAEnabled = false;
         xTouchConfig.xTouchWakeOnPrint = true;
         xTouchConfig.xTouchChamberSensorReadingDiff = 0;
         xtouch_settings_save(true);
@@ -47,7 +45,6 @@ void xtouch_settings_loadSettings()
     xTouchConfig.xTouchBacklightLevel = settings.containsKey("backlight") ? settings["backlight"].as<int>() : 128;
     xTouchConfig.xTouchTFTOFFValue = settings.containsKey("tftOff") ? settings["tftOff"].as<int>() : 15;
     xTouchConfig.xTouchTFTInvert = false;
-    xTouchConfig.xTouchOTAEnabled = settings.containsKey("ota") ? settings["ota"].as<bool>() : false;
     xTouchConfig.xTouchWakeOnPrint = settings.containsKey("wop") ? settings["wop"].as<bool>() : true;
     xTouchConfig.xTouchChamberSensorReadingDiff = settings.containsKey("chamberTempDiff") ? settings["chamberTempDiff"].as<int8_t>() : 0;
 
