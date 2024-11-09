@@ -147,7 +147,6 @@ extern "C"
         bool xTouchChamberFanEnabled;
         bool xTouchChamberSensorEnabled;
         int8_t xTouchChamberSensorReadingDiff;
-        bool xTouchOTAEnabled;
         bool xTouchTFTFlip;
         bool xTouchTFTInvert;
         char xTouchAccessCode[9];

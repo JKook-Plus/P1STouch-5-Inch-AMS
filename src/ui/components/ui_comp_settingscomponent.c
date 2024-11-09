@@ -394,6 +394,54 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
         lv_obj_add_state(ui_settingsTFTFlipSwitch, LV_STATE_CHECKED);
     }
 
+    lv_obj_t *cui_settings_chamberSensor;
+    cui_settings_chamberSensor = lv_obj_create(cui_settingsComponent);
+    lv_obj_set_width(cui_settings_chamberSensor, lv_pct(100));
+    lv_obj_set_height(cui_settings_chamberSensor, LV_SIZE_CONTENT); /// 50
+    lv_obj_set_flex_flow(cui_settings_chamberSensor, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(cui_settings_chamberSensor, LV_FLEX_ALIGN_SPACE_BETWEEN, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    lv_obj_set_scrollbar_mode(cui_settings_chamberSensor, LV_SCROLLBAR_MODE_OFF);
+    lv_obj_set_style_bg_color(cui_settings_chamberSensor, lv_color_hex(0x222222), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(cui_settings_chamberSensor, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(cui_settings_chamberSensor, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(cui_settings_chamberSensor, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(cui_settings_chamberSensor, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(cui_settings_chamberSensor, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(cui_settings_chamberSensor, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_t *cui_settings_chamberSensorLabel;
+    cui_settings_chamberSensorLabel = lv_label_create(cui_settings_chamberSensor);
+    lv_obj_set_width(cui_settings_chamberSensorLabel, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(cui_settings_chamberSensorLabel, LV_SIZE_CONTENT); /// 1
+    lv_label_set_text(cui_settings_chamberSensorLabel, "Chamber Temp");
+    lv_obj_set_style_text_font(cui_settings_chamberSensorLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_scrollbar_mode(cui_settings_chamberSensorLabel, LV_SCROLLBAR_MODE_OFF);
+
+    // lv_obj_t *ui_settingsTFTInvertSwitch;
+    ui_settings_chamberSensorSwitch = lv_switch_create(cui_settings_chamberSensor);
+    lv_obj_set_width(ui_settings_chamberSensorSwitch, 50);
+    lv_obj_set_height(ui_settings_chamberSensorSwitch, 25);
+
+    lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x2AFF00), LV_PART_INDICATOR | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_opa(ui_settings_chamberSensorSwitch, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
+
+    lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x2AFF00), LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_settings_chamberSensorSwitch, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x000000), LV_PART_KNOB | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_opa(ui_settings_chamberSensorSwitch, 255, LV_PART_KNOB | LV_STATE_CHECKED);
+
+    if (!xtouch_bblp_is_p1Series())
+    {
+        lv_obj_add_flag(cui_settings_chamberSensor, LV_OBJ_FLAG_HIDDEN);
+    }
+    else
+    {
+        if (xTouchConfig.xTouchChamberSensorEnabled)
+        {
+            lv_obj_add_state(ui_settings_chamberSensorSwitch, LV_STATE_CHECKED);
+        }
+    }
+
     lv_obj_t *cui_pairingTitle;
     cui_pairingTitle = lv_label_create(cui_settingsComponent);
     lv_obj_set_width(cui_pairingTitle, lv_pct(100));
@@ -542,95 +590,6 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
         }
     }
 
-    lv_obj_t *cui_settings_chamberSensor;
-    cui_settings_chamberSensor = lv_obj_create(cui_settingsComponent);
-    lv_obj_set_width(cui_settings_chamberSensor, lv_pct(100));
-    lv_obj_set_height(cui_settings_chamberSensor, LV_SIZE_CONTENT); /// 50
-    lv_obj_set_flex_flow(cui_settings_chamberSensor, LV_FLEX_FLOW_ROW);
-    lv_obj_set_flex_align(cui_settings_chamberSensor, LV_FLEX_ALIGN_SPACE_BETWEEN, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-    lv_obj_set_scrollbar_mode(cui_settings_chamberSensor, LV_SCROLLBAR_MODE_OFF);
-    lv_obj_set_style_bg_color(cui_settings_chamberSensor, lv_color_hex(0x222222), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(cui_settings_chamberSensor, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_width(cui_settings_chamberSensor, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_left(cui_settings_chamberSensor, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_right(cui_settings_chamberSensor, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(cui_settings_chamberSensor, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_bottom(cui_settings_chamberSensor, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    lv_obj_t *cui_settings_chamberSensorLabel;
-    cui_settings_chamberSensorLabel = lv_label_create(cui_settings_chamberSensor);
-    lv_obj_set_width(cui_settings_chamberSensorLabel, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(cui_settings_chamberSensorLabel, LV_SIZE_CONTENT); /// 1
-    lv_label_set_text(cui_settings_chamberSensorLabel, "CHAMBER TEMP");
-    lv_obj_set_style_text_font(cui_settings_chamberSensorLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_scrollbar_mode(cui_settings_chamberSensorLabel, LV_SCROLLBAR_MODE_OFF);
-
-    // lv_obj_t *ui_settingsTFTInvertSwitch;
-    ui_settings_chamberSensorSwitch = lv_switch_create(cui_settings_chamberSensor);
-    lv_obj_set_width(ui_settings_chamberSensorSwitch, 50);
-    lv_obj_set_height(ui_settings_chamberSensorSwitch, 25);
-
-    lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x2AFF00), LV_PART_INDICATOR | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_opa(ui_settings_chamberSensorSwitch, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
-
-    lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x2AFF00), LV_PART_KNOB | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_settings_chamberSensorSwitch, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x000000), LV_PART_KNOB | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_opa(ui_settings_chamberSensorSwitch, 255, LV_PART_KNOB | LV_STATE_CHECKED);
-
-    if (!xtouch_bblp_is_p1Series())
-    {
-        lv_obj_add_flag(cui_settings_chamberSensor, LV_OBJ_FLAG_HIDDEN);
-    }
-    else
-    {
-        if (xTouchConfig.xTouchChamberSensorEnabled)
-        {
-            lv_obj_add_state(ui_settings_chamberSensorSwitch, LV_STATE_CHECKED);
-        }
-    }
-
-    lv_obj_t *cui_settings_ota;
-    cui_settings_ota = lv_obj_create(cui_settingsComponent);
-    lv_obj_set_width(cui_settings_ota, lv_pct(100));
-    lv_obj_set_height(cui_settings_ota, LV_SIZE_CONTENT); /// 50
-    lv_obj_set_flex_flow(cui_settings_ota, LV_FLEX_FLOW_ROW);
-    lv_obj_set_flex_align(cui_settings_ota, LV_FLEX_ALIGN_SPACE_BETWEEN, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-    lv_obj_set_scrollbar_mode(cui_settings_ota, LV_SCROLLBAR_MODE_OFF);
-    lv_obj_set_style_bg_color(cui_settings_ota, lv_color_hex(0x222222), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(cui_settings_ota, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_width(cui_settings_ota, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_left(cui_settings_ota, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_right(cui_settings_ota, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(cui_settings_ota, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_bottom(cui_settings_ota, 16, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_add_flag(cui_settings_ota, LV_OBJ_FLAG_HIDDEN);
-
-    lv_obj_t *cui_settings_otaLabel;
-    cui_settings_otaLabel = lv_label_create(cui_settings_ota);
-    lv_obj_set_width(cui_settings_otaLabel, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(cui_settings_otaLabel, LV_SIZE_CONTENT); /// 1
-    lv_label_set_text(cui_settings_otaLabel, "OTA Update");
-    lv_obj_set_scrollbar_mode(cui_settings_otaLabel, LV_SCROLLBAR_MODE_OFF);
-
-    // lv_obj_t *ui_settingsTFTInvertSwitch;
-    ui_settings_otaSwitch = lv_switch_create(cui_settings_ota);
-    lv_obj_set_width(ui_settings_otaSwitch, 50);
-    lv_obj_set_height(ui_settings_otaSwitch, 25);
-
-    lv_obj_set_style_bg_color(ui_settings_otaSwitch, lv_color_hex(0x2AFF00), LV_PART_INDICATOR | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_opa(ui_settings_otaSwitch, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
-
-    lv_obj_set_style_bg_color(ui_settings_otaSwitch, lv_color_hex(0x2AFF00), LV_PART_KNOB | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_settings_otaSwitch, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_settings_otaSwitch, lv_color_hex(0x000000), LV_PART_KNOB | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_opa(ui_settings_otaSwitch, 255, LV_PART_KNOB | LV_STATE_CHECKED);
-
-    if (xTouchConfig.xTouchOTAEnabled)
-    {
-        lv_obj_add_state(ui_settings_otaSwitch, LV_STATE_CHECKED);
-    }
-
     lv_obj_t *cui_reseDeviceButton;
     cui_reseDeviceButton = lv_label_create(cui_settingsComponent);
     lv_obj_set_width(cui_reseDeviceButton, lv_pct(100));
@@ -682,9 +641,6 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
     children[UI_COMP_SETTINGSCOMPONENT_CHAMBER_TEMP] = cui_settings_chamberSensor;
     children[UI_COMP_SETTINGSCOMPONENT_CHAMBER_TEMP_LABEL] = cui_settings_chamberSensorLabel;
     children[UI_COMP_SETTINGSCOMPONENT_CHAMBER_TEMP_SWITCH] = ui_settings_chamberSensorSwitch;
-    children[UI_COMP_SETTINGSCOMPONENT_OTA] = cui_settings_ota;
-    children[UI_COMP_SETTINGSCOMPONENT_OTA_LABEL] = cui_settings_otaLabel;
-    children[UI_COMP_SETTINGSCOMPONENT_OTA_SWITCH] = ui_settings_otaSwitch;
     children[UI_COMP_SETTINGSCOMPONENT_RESETDEVICEBUTTON] = cui_reseDeviceButton;
 
     lv_obj_add_event_cb(cui_settingsComponent, get_component_child_event_cb, LV_EVENT_GET_COMP_CHILD, children);
@@ -703,7 +659,6 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
     lv_obj_add_event_cb(ui_settings_chamberFanSwitch, ui_event_comp_settingsComponent_onChamberFan, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_add_event_cb(ui_settings_chamberSensorSwitch, ui_event_comp_settingsComponent_onChamberTemp, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_add_event_cb(ui_settingsTFTFlipSwitch, ui_event_comp_settingsComponent_onTFTFlip, LV_EVENT_VALUE_CHANGED, NULL);
-    lv_obj_add_event_cb(ui_settings_otaSwitch, ui_event_comp_settingsComponent_onOTA, LV_EVENT_VALUE_CHANGED, NULL);
 
     ui_comp_settingsComponent_create_hook(cui_settingsComponent);
     return cui_settingsComponent;
