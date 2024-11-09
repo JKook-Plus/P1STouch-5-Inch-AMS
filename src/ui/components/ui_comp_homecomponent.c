@@ -307,15 +307,22 @@ void onXTouchFilenameUpdate(lv_event_t *e)
     
     if (strcmp(last_gcode_file,bambuStatus.gcode_file)==0) return;
     
+    lv_anim_del(target, set_x);
+
     lv_anim_t a;
     lv_anim_init(&a);
     lv_anim_set_var(&a, target);
-    lv_anim_set_values(&a, 30, lv_obj_get_width(cui_mainScreenCentral)-lv_obj_get_width(target)-30);
+    
     lv_anim_set_time(&a, strlen(bambuStatus.gcode_file)*250);
     lv_anim_set_repeat_count(&a, LV_ANIM_REPEAT_INFINITE);
     lv_anim_set_repeat_delay(&a, 1000);
     lv_anim_set_exec_cb(&a, set_x);
-    lv_anim_start(&a);
+    if (lv_obj_get_width(target) > lv_obj_get_width(cui_mainScreenCentral)){
+        lv_anim_set_values(&a, 30, lv_obj_get_width(cui_mainScreenCentral)-lv_obj_get_width(target)-30);
+        lv_anim_start(&a);
+    }
+    
+    
 
     memset(last_gcode_file,0,128);
 
