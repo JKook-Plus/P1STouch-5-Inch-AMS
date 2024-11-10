@@ -353,7 +353,7 @@ void onXTouchWifiSignal(lv_event_t *e)
     lv_msg_t *m = lv_event_get_msg(e);
 
     struct XTOUCH_MESSAGE_DATA *message = (struct XTOUCH_MESSAGE_DATA *)m->payload;
-    lv_obj_set_style_text_color(target, message->data < 50 ? lv_color_hex(0x2aff00) : lv_color_hex(0xff682a), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_color(target, message->data < 50 ? lv_color_hex(0x00AAff) : lv_color_hex(0xff682a), LV_PART_MAIN | LV_STATE_DEFAULT);
 }
 
 void onXTouchIPCam(lv_event_t *e)
@@ -364,7 +364,7 @@ void onXTouchIPCam(lv_event_t *e)
     if (bambuStatus.has_ipcam)
     {
         lv_obj_clear_flag(target, LV_OBJ_FLAG_HIDDEN);
-        lv_obj_set_style_text_color(target, bambuStatus.camera_recording_when_printing || bambuStatus.camera_timelapse ? lv_color_hex(0x2aff00) : lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_text_color(target, bambuStatus.camera_recording_when_printing || bambuStatus.camera_timelapse ? lv_color_hex(0x00AAff) : lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_label_set_text(target, bambuStatus.camera_timelapse ? "y 2" : "y");
     }
     else
@@ -461,7 +461,7 @@ void onXTouchPrintStatus(lv_event_t *e)
     {
     case XTOUCH_PRINT_STATUS_PAUSED:
         lv_label_set_text(playPauseButton, "z");
-        lv_obj_set_style_text_color(playPauseButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_text_color(playPauseButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_DEFAULT);
 
         lv_obj_clear_flag(comp_homeComponent[UI_COMP_HOMECOMPONENT_MAINSCREENLEFT_MAINSCREENPLAYER], LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(comp_homeComponent[UI_COMP_HOMECOMPONENT_MAINSCREENLEFT_MAINSCREENCENTRAL], LV_OBJ_FLAG_HIDDEN);
@@ -1106,7 +1106,7 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
     // lv_obj_set_style_border_width(cui_mainScreenSpeedDropDown, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     // lv_dropdown_set_selected(cui_mainScreenSpeedDropDown, 1);
 
-    // lv_obj_set_style_text_color(cui_mainScreenSpeedDropDown, lv_color_hex(0x2aff00), LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    // lv_obj_set_style_text_color(cui_mainScreenSpeedDropDown, lv_color_hex(0x00AAff), LV_PART_INDICATOR | LV_STATE_DEFAULT);
     // lv_obj_set_style_text_opa(cui_mainScreenSpeedDropDown, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
 
     // lv_obj_set_style_text_letter_space(lv_dropdown_get_list(cui_mainScreenSpeedDropDown), 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -1121,7 +1121,7 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
     // lv_obj_set_style_text_line_space(lv_dropdown_get_list(cui_mainScreenSpeedDropDown), 32, LV_PART_SELECTED | LV_STATE_DEFAULT);
     // lv_obj_set_style_text_color(lv_dropdown_get_list(cui_mainScreenSpeedDropDown), lv_color_hex(0x000000), LV_PART_SELECTED | LV_STATE_CHECKED);
     // lv_obj_set_style_text_opa(lv_dropdown_get_list(cui_mainScreenSpeedDropDown), 255, LV_PART_SELECTED | LV_STATE_CHECKED);
-    // lv_obj_set_style_bg_color(lv_dropdown_get_list(cui_mainScreenSpeedDropDown), lv_color_hex(0x2aff00), LV_PART_SELECTED | LV_STATE_CHECKED);
+    // lv_obj_set_style_bg_color(lv_dropdown_get_list(cui_mainScreenSpeedDropDown), lv_color_hex(0x00AAff), LV_PART_SELECTED | LV_STATE_CHECKED);
     // lv_obj_set_style_bg_opa(lv_dropdown_get_list(cui_mainScreenSpeedDropDown), 255, LV_PART_SELECTED | LV_STATE_CHECKED);
     // lv_obj_set_style_text_color(lv_dropdown_get_list(cui_mainScreenSpeedDropDown), lv_color_hex(0x000000), LV_PART_SELECTED | LV_STATE_PRESSED);
     // lv_obj_set_style_text_opa(lv_dropdown_get_list(cui_mainScreenSpeedDropDown), 255, LV_PART_SELECTED | LV_STATE_PRESSED);
@@ -1174,10 +1174,10 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_mainScreenLightButton, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_mainScreenLightButton, lv_color_hex(0x888888), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_mainScreenLightButton, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(cui_mainScreenLightButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_border_color(cui_mainScreenLightButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_opa(cui_mainScreenLightButton, 255, LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_width(cui_mainScreenLightButton, 3, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_text_color(cui_mainScreenLightButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_text_color(cui_mainScreenLightButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_text_opa(cui_mainScreenLightButton, 255, LV_PART_MAIN | LV_STATE_CHECKED);
 
     lv_obj_t *cui_mainScreenLightButtonIcon;
@@ -1222,7 +1222,7 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_flex_align(cui_mainScreenNozzleTemp, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
     lv_obj_clear_flag(cui_mainScreenNozzleTemp, LV_OBJ_FLAG_PRESS_LOCK | LV_OBJ_FLAG_CLICK_FOCUSABLE | LV_OBJ_FLAG_GESTURE_BUBBLE | LV_OBJ_FLAG_SNAPPABLE | LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM | LV_OBJ_FLAG_SCROLL_CHAIN); /// Flags
     lv_obj_set_scrollbar_mode(cui_mainScreenNozzleTemp, LV_SCROLLBAR_MODE_OFF);
-    lv_obj_set_style_bg_color(cui_mainScreenNozzleTemp, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(cui_mainScreenNozzleTemp, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(cui_mainScreenNozzleTemp, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(cui_mainScreenNozzleTemp, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(cui_mainScreenNozzleTemp, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -1233,7 +1233,7 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_mainScreenNozzleTemp, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_mainScreenNozzleTemp, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_mainScreenNozzleTemp, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(cui_mainScreenNozzleTemp, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_mainScreenNozzleTemp, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_mainScreenNozzleTemp, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t *cui_mainScreenNozzleTempIcon;
@@ -1275,7 +1275,7 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_mainScreenBedTemp, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_mainScreenBedTemp, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_mainScreenBedTemp, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(cui_mainScreenBedTemp, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_mainScreenBedTemp, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_mainScreenBedTemp, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t *cui_mainScreenBedTempIcon;
@@ -1440,7 +1440,7 @@ lv_obj_t *ui_homeComponent_create(lv_obj_t *comp_parent)
     if (bambuStatus.has_ipcam)
     {
         lv_obj_clear_flag(cui_mainScreenCameraIcon, LV_OBJ_FLAG_HIDDEN);
-        lv_obj_set_style_text_color(cui_mainScreenCameraIcon, bambuStatus.camera_recording_when_printing || bambuStatus.camera_timelapse ? lv_color_hex(0x2aff00) : lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_text_color(cui_mainScreenCameraIcon, bambuStatus.camera_recording_when_printing || bambuStatus.camera_timelapse ? lv_color_hex(0x00AAff) : lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_label_set_text(cui_mainScreenCameraIcon, bambuStatus.camera_timelapse ? "y 2" : "y");
     }
     else

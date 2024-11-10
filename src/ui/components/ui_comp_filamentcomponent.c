@@ -155,7 +155,7 @@ void ui_event_comp_filamentComponent_onAmsUpdate(lv_event_t *e)
     printf("onAmsUpdate %d\n",user_data);
 
     
-    if (!(bambuStatus.ams_status_main == AMS_STATUS_MAIN_IDLE || bambuStatus.ams_status_main == AMS_STATUS_MAIN_ASSIST))
+    if (!(bambuStatus.ams_status_main == AMS_STATUS_MAIN_IDLE || bambuStatus.ams_status_main == AMS_STATUS_MAIN_ASSIST) || bambuStatus.print_status == XTOUCH_PRINT_STATUS_RUNNING)
     {
         lv_obj_add_state(target, LV_STATE_DISABLED);
     }
@@ -661,6 +661,27 @@ lv_obj_t *ui_filamentComponent_create(lv_obj_t *comp_parent)
 
     lv_obj_add_event_cb(cui_AmsSlot4, ui_filamentComponent_onAMSBitsSlot, LV_EVENT_MSG_RECEIVED, NULL);
     lv_msg_subsribe_obj(XTOUCH_ON_AMS_BITS, cui_AmsSlot4, NULL);
+
+
+    
+    lv_obj_add_event_cb(cui_AmsControl, ui_event_comp_filamentComponent_onAmsUpdate, LV_EVENT_MSG_RECEIVED, children);
+    lv_msg_subsribe_obj(XTOUCH_ON_PRINT_STATUS, cui_AmsControl, NULL);
+
+    lv_obj_add_event_cb(cui_AmsSlot1, ui_event_comp_filamentComponent_onAmsUpdate, LV_EVENT_MSG_RECEIVED, children);
+    lv_msg_subsribe_obj(XTOUCH_ON_PRINT_STATUS, cui_AmsSlot1, NULL);
+
+    
+    lv_obj_add_event_cb(cui_AmsSlot2, ui_event_comp_filamentComponent_onAmsUpdate, LV_EVENT_MSG_RECEIVED, children);
+    lv_msg_subsribe_obj(XTOUCH_ON_PRINT_STATUS, cui_AmsSlot2, NULL);
+
+    
+    lv_obj_add_event_cb(cui_AmsSlot3, ui_event_comp_filamentComponent_onAmsUpdate, LV_EVENT_MSG_RECEIVED, children);
+    lv_msg_subsribe_obj(XTOUCH_ON_PRINT_STATUS, cui_AmsSlot3, NULL);
+
+    
+    lv_obj_add_event_cb(cui_AmsSlot4, ui_filamentComponent_onAMSBitsSlot, LV_EVENT_MSG_RECEIVED, children);
+    lv_msg_subsribe_obj(XTOUCH_ON_PRINT_STATUS, cui_AmsSlot4, NULL);
+
 
     lv_obj_add_event_cb(cui_AmsSlot1, ui_event_comp_filamentComponent_amsLoad, LV_EVENT_ALL, 1);
     lv_obj_add_event_cb(cui_AmsSlot2, ui_event_comp_filamentComponent_amsLoad, LV_EVENT_ALL, 2);
