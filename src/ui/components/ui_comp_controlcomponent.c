@@ -519,7 +519,7 @@ lv_obj_t *ui_controlComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_controlScreenDummy1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_controlScreenDummy1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_controlScreenDummy1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(cui_controlScreenDummy1, lv_color_hex(0x008800), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_controlScreenDummy1, lv_color_hex(0x005588), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_controlScreenDummy1, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t **children = lv_mem_alloc(sizeof(lv_obj_t *) * _UI_COMP_CONTROLCOMPONENT_NUM);

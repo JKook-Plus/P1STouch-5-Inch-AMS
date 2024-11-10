@@ -213,7 +213,7 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_bg_color(ui_settingsBackLightPanelSlider, lv_color_hex(0x333333), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_settingsBackLightPanelSlider, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_set_style_bg_color(ui_settingsBackLightPanelSlider, lv_color_hex(0x00FF00), LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_settingsBackLightPanelSlider, lv_color_hex(0x00AAff), LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_settingsBackLightPanelSlider, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
 
     lv_obj_set_style_bg_color(ui_settingsBackLightPanelSlider, lv_color_hex(0xFFFFFF), LV_PART_KNOB | LV_STATE_DEFAULT);
@@ -255,7 +255,7 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_bg_color(ui_settingsTFTOFFSlider, lv_color_hex(0x333333), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_settingsTFTOFFSlider, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_set_style_bg_color(ui_settingsTFTOFFSlider, lv_color_hex(0x00FF00), LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_settingsTFTOFFSlider, lv_color_hex(0x00AAff), LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_settingsTFTOFFSlider, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
 
     lv_obj_set_style_bg_color(ui_settingsTFTOFFSlider, lv_color_hex(0xFFFFFF), LV_PART_KNOB | LV_STATE_DEFAULT);
@@ -301,10 +301,10 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_width(ui_settingsWOPSwitch, 50);
     lv_obj_set_height(ui_settingsWOPSwitch, 25);
 
-    lv_obj_set_style_bg_color(ui_settingsWOPSwitch, lv_color_hex(0x2AFF00), LV_PART_INDICATOR | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_color(ui_settingsWOPSwitch, lv_color_hex(0x00AAff), LV_PART_INDICATOR | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settingsWOPSwitch, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
 
-    lv_obj_set_style_bg_color(ui_settingsWOPSwitch, lv_color_hex(0x2AFF00), LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_settingsWOPSwitch, lv_color_hex(0x00AAff), LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_settingsWOPSwitch, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_settingsWOPSwitch, lv_color_hex(0x000000), LV_PART_KNOB | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settingsWOPSwitch, 255, LV_PART_KNOB | LV_STATE_CHECKED);
@@ -342,10 +342,10 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_width(ui_settingsTFTInvertSwitch, 50);
     lv_obj_set_height(ui_settingsTFTInvertSwitch, 25);
 
-    lv_obj_set_style_bg_color(ui_settingsTFTInvertSwitch, lv_color_hex(0x2AFF00), LV_PART_INDICATOR | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_color(ui_settingsTFTInvertSwitch, lv_color_hex(0x00AAff), LV_PART_INDICATOR | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settingsTFTInvertSwitch, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
 
-    lv_obj_set_style_bg_color(ui_settingsTFTInvertSwitch, lv_color_hex(0x2AFF00), LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_settingsTFTInvertSwitch, lv_color_hex(0x00AAff), LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_settingsTFTInvertSwitch, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_settingsTFTInvertSwitch, lv_color_hex(0x000000), LV_PART_KNOB | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settingsTFTInvertSwitch, 255, LV_PART_KNOB | LV_STATE_CHECKED);
@@ -382,10 +382,10 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_width(ui_settingsTFTFlipSwitch, 50);
     lv_obj_set_height(ui_settingsTFTFlipSwitch, 25);
 
-    lv_obj_set_style_bg_color(ui_settingsTFTFlipSwitch, lv_color_hex(0x2AFF00), LV_PART_INDICATOR | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_color(ui_settingsTFTFlipSwitch, lv_color_hex(0x00AAff), LV_PART_INDICATOR | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settingsTFTFlipSwitch, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
 
-    lv_obj_set_style_bg_color(ui_settingsTFTFlipSwitch, lv_color_hex(0x2AFF00), LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_settingsTFTFlipSwitch, lv_color_hex(0x00AAff), LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_settingsTFTFlipSwitch, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_settingsTFTFlipSwitch, lv_color_hex(0x000000), LV_PART_KNOB | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settingsTFTFlipSwitch, 255, LV_PART_KNOB | LV_STATE_CHECKED);
@@ -422,10 +422,10 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_width(ui_settings_chamberSensorSwitch, 50);
     lv_obj_set_height(ui_settings_chamberSensorSwitch, 25);
 
-    lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x2AFF00), LV_PART_INDICATOR | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x00AAff), LV_PART_INDICATOR | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settings_chamberSensorSwitch, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
 
-    lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x2AFF00), LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x00AAff), LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_settings_chamberSensorSwitch, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_settings_chamberSensorSwitch, lv_color_hex(0x000000), LV_PART_KNOB | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settings_chamberSensorSwitch, 255, LV_PART_KNOB | LV_STATE_CHECKED);
@@ -522,10 +522,10 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_width(ui_settings_auxFanSwitch, 50);
     lv_obj_set_height(ui_settings_auxFanSwitch, 25);
 
-    lv_obj_set_style_bg_color(ui_settings_auxFanSwitch, lv_color_hex(0x2AFF00), LV_PART_INDICATOR | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_color(ui_settings_auxFanSwitch, lv_color_hex(0x00AAff), LV_PART_INDICATOR | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settings_auxFanSwitch, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
 
-    lv_obj_set_style_bg_color(ui_settings_auxFanSwitch, lv_color_hex(0x2AFF00), LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_settings_auxFanSwitch, lv_color_hex(0x00AAff), LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_settings_auxFanSwitch, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_settings_auxFanSwitch, lv_color_hex(0x000000), LV_PART_KNOB | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settings_auxFanSwitch, 255, LV_PART_KNOB | LV_STATE_CHECKED);
@@ -570,10 +570,10 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_width(ui_settings_chamberFanSwitch, 50);
     lv_obj_set_height(ui_settings_chamberFanSwitch, 25);
 
-    lv_obj_set_style_bg_color(ui_settings_chamberFanSwitch, lv_color_hex(0x2AFF00), LV_PART_INDICATOR | LV_STATE_CHECKED);
+    lv_obj_set_style_bg_color(ui_settings_chamberFanSwitch, lv_color_hex(0x00AAff), LV_PART_INDICATOR | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settings_chamberFanSwitch, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
 
-    lv_obj_set_style_bg_color(ui_settings_chamberFanSwitch, lv_color_hex(0x2AFF00), LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_settings_chamberFanSwitch, lv_color_hex(0x00AAff), LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_settings_chamberFanSwitch, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_settings_chamberFanSwitch, lv_color_hex(0x000000), LV_PART_KNOB | LV_STATE_CHECKED);
     lv_obj_set_style_bg_opa(ui_settings_chamberFanSwitch, 255, LV_PART_KNOB | LV_STATE_CHECKED);
