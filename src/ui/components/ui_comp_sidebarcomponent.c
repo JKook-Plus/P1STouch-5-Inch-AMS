@@ -108,7 +108,7 @@ lv_obj_t *ui_sidebarComponent_create(lv_obj_t *comp_parent)
     lv_obj_clear_flag(cui_sidebarHomeButton, LV_OBJ_FLAG_PRESS_LOCK | LV_OBJ_FLAG_CLICK_FOCUSABLE | LV_OBJ_FLAG_GESTURE_BUBBLE | LV_OBJ_FLAG_SNAPPABLE | LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM | LV_OBJ_FLAG_SCROLL_CHAIN); /// Flags
     lv_obj_set_scrollbar_mode(cui_sidebarHomeButton, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_style_radius(cui_sidebarHomeButton, 4, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(cui_sidebarHomeButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(cui_sidebarHomeButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(cui_sidebarHomeButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(cui_sidebarHomeButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(cui_sidebarHomeButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -119,9 +119,9 @@ lv_obj_t *ui_sidebarComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_sidebarHomeButton, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_sidebarHomeButton, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_sidebarHomeButton, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_color(cui_sidebarHomeButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_text_color(cui_sidebarHomeButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_text_opa(cui_sidebarHomeButton, 255, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(cui_sidebarHomeButton, lv_color_hex(0x008800), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_sidebarHomeButton, lv_color_hex(0x005588), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_sidebarHomeButton, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t *cui_sidebarHomeButtonIcon;
@@ -144,7 +144,7 @@ lv_obj_t *ui_sidebarComponent_create(lv_obj_t *comp_parent)
     lv_obj_clear_flag(cui_sidebarTempButton, LV_OBJ_FLAG_PRESS_LOCK | LV_OBJ_FLAG_CLICK_FOCUSABLE | LV_OBJ_FLAG_GESTURE_BUBBLE | LV_OBJ_FLAG_SNAPPABLE | LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM | LV_OBJ_FLAG_SCROLL_CHAIN); /// Flags
     lv_obj_set_scrollbar_mode(cui_sidebarTempButton, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_style_radius(cui_sidebarTempButton, 4, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(cui_sidebarTempButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(cui_sidebarTempButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(cui_sidebarTempButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(cui_sidebarTempButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(cui_sidebarTempButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -155,9 +155,9 @@ lv_obj_t *ui_sidebarComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_sidebarTempButton, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_sidebarTempButton, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_sidebarTempButton, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_color(cui_sidebarTempButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_text_color(cui_sidebarTempButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_text_opa(cui_sidebarTempButton, 255, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(cui_sidebarTempButton, lv_color_hex(0x008800), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_sidebarTempButton, lv_color_hex(0x005588), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_sidebarTempButton, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t *cui_sidebarTempButtonIcon;
@@ -180,7 +180,7 @@ lv_obj_t *ui_sidebarComponent_create(lv_obj_t *comp_parent)
     lv_obj_clear_flag(cui_sidebarControlButton, LV_OBJ_FLAG_PRESS_LOCK | LV_OBJ_FLAG_CLICK_FOCUSABLE | LV_OBJ_FLAG_GESTURE_BUBBLE | LV_OBJ_FLAG_SNAPPABLE | LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM | LV_OBJ_FLAG_SCROLL_CHAIN); /// Flags
     lv_obj_set_scrollbar_mode(cui_sidebarControlButton, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_style_radius(cui_sidebarControlButton, 4, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(cui_sidebarControlButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(cui_sidebarControlButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(cui_sidebarControlButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(cui_sidebarControlButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(cui_sidebarControlButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -191,9 +191,9 @@ lv_obj_t *ui_sidebarComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_sidebarControlButton, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_sidebarControlButton, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_sidebarControlButton, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_color(cui_sidebarControlButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_text_color(cui_sidebarControlButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_text_opa(cui_sidebarControlButton, 255, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(cui_sidebarControlButton, lv_color_hex(0x008800), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_sidebarControlButton, lv_color_hex(0x005588), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_sidebarControlButton, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t *cui_sidebarControlButtonIcon;
@@ -216,7 +216,7 @@ lv_obj_t *ui_sidebarComponent_create(lv_obj_t *comp_parent)
     lv_obj_clear_flag(cui_sidebarNozzleButton, LV_OBJ_FLAG_PRESS_LOCK | LV_OBJ_FLAG_CLICK_FOCUSABLE | LV_OBJ_FLAG_GESTURE_BUBBLE | LV_OBJ_FLAG_SNAPPABLE | LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM | LV_OBJ_FLAG_SCROLL_CHAIN); /// Flags
     lv_obj_set_scrollbar_mode(cui_sidebarNozzleButton, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_style_radius(cui_sidebarNozzleButton, 4, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(cui_sidebarNozzleButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(cui_sidebarNozzleButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(cui_sidebarNozzleButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(cui_sidebarNozzleButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(cui_sidebarNozzleButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -227,9 +227,9 @@ lv_obj_t *ui_sidebarComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_sidebarNozzleButton, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_sidebarNozzleButton, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_sidebarNozzleButton, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_color(cui_sidebarNozzleButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_text_color(cui_sidebarNozzleButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_text_opa(cui_sidebarNozzleButton, 255, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(cui_sidebarNozzleButton, lv_color_hex(0x008800), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_sidebarNozzleButton, lv_color_hex(0x005588), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_sidebarNozzleButton, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t *cui_sidebarNozzleButtonIcon;
@@ -252,7 +252,7 @@ lv_obj_t *ui_sidebarComponent_create(lv_obj_t *comp_parent)
     lv_obj_clear_flag(cui_sidebarSettingsButton, LV_OBJ_FLAG_PRESS_LOCK | LV_OBJ_FLAG_CLICK_FOCUSABLE | LV_OBJ_FLAG_GESTURE_BUBBLE | LV_OBJ_FLAG_SNAPPABLE | LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM | LV_OBJ_FLAG_SCROLL_CHAIN); /// Flags
     lv_obj_set_scrollbar_mode(cui_sidebarSettingsButton, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_style_radius(cui_sidebarSettingsButton, 4, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(cui_sidebarSettingsButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(cui_sidebarSettingsButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(cui_sidebarSettingsButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(cui_sidebarSettingsButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(cui_sidebarSettingsButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -263,9 +263,9 @@ lv_obj_t *ui_sidebarComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_sidebarSettingsButton, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_sidebarSettingsButton, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_sidebarSettingsButton, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_color(cui_sidebarSettingsButton, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_text_color(cui_sidebarSettingsButton, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_text_opa(cui_sidebarSettingsButton, 255, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(cui_sidebarSettingsButton, lv_color_hex(0x008800), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_sidebarSettingsButton, lv_color_hex(0x005588), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_sidebarSettingsButton, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t *cui_sidebarSettingsButtonIcon;

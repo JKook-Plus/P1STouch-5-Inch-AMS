@@ -400,10 +400,10 @@ lv_obj_t *ui_temperatureComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_temperatureComponentNozzle, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_temperatureComponentNozzle, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_temperatureComponentNozzle, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(cui_temperatureComponentNozzle, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_border_color(cui_temperatureComponentNozzle, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_opa(cui_temperatureComponentNozzle, 255, LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_width(cui_temperatureComponentNozzle, 2, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(cui_temperatureComponentNozzle, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_temperatureComponentNozzle, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_temperatureComponentNozzle, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_set_style_pad_row(cui_temperatureComponentNozzle, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
@@ -473,10 +473,10 @@ lv_obj_t *ui_temperatureComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_temperatureComponentBed, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_temperatureComponentBed, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_temperatureComponentBed, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(cui_temperatureComponentBed, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_border_color(cui_temperatureComponentBed, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_opa(cui_temperatureComponentBed, 255, LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_width(cui_temperatureComponentBed, 2, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(cui_temperatureComponentBed, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_temperatureComponentBed, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_temperatureComponentBed, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_set_style_pad_row(cui_temperatureComponentBed, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
@@ -568,10 +568,10 @@ lv_obj_t *ui_temperatureComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_temperatureComponentPartFan, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_temperatureComponentPartFan, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_temperatureComponentPartFan, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(cui_temperatureComponentPartFan, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_border_color(cui_temperatureComponentPartFan, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_opa(cui_temperatureComponentPartFan, 255, LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_width(cui_temperatureComponentPartFan, 2, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(cui_temperatureComponentPartFan, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_temperatureComponentPartFan, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_temperatureComponentPartFan, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t *cui_temperatureComponentPartFanIcon;
@@ -654,10 +654,10 @@ lv_obj_t *ui_temperatureComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_temperatureComponentAuxFan, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_temperatureComponentAuxFan, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_temperatureComponentAuxFan, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(cui_temperatureComponentAuxFan, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_border_color(cui_temperatureComponentAuxFan, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_opa(cui_temperatureComponentAuxFan, 255, LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_width(cui_temperatureComponentAuxFan, 2, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(cui_temperatureComponentAuxFan, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_temperatureComponentAuxFan, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_temperatureComponentAuxFan, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     if ((xtouch_bblp_is_p1p() || xtouch_bblp_is_x1()) && !xTouchConfig.xTouchAuxFanEnabled)
@@ -745,10 +745,10 @@ lv_obj_t *ui_temperatureComponent_create(lv_obj_t *comp_parent)
     lv_obj_set_style_pad_column(cui_temperatureComponentChamberFan, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(cui_temperatureComponentChamberFan, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(cui_temperatureComponentChamberFan, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(cui_temperatureComponentChamberFan, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_border_color(cui_temperatureComponentChamberFan, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_opa(cui_temperatureComponentChamberFan, 255, LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_border_width(cui_temperatureComponentChamberFan, 2, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(cui_temperatureComponentChamberFan, lv_color_hex(0x2aff00), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(cui_temperatureComponentChamberFan, lv_color_hex(0x00AAff), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(cui_temperatureComponentChamberFan, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     if ((xtouch_bblp_is_p1p()) && !xTouchConfig.xTouchChamberFanEnabled)
