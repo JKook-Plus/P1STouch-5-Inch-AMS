@@ -541,6 +541,7 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
                         set_tray_temp(tray_idx+1,(trays[tray_idx]["nozzle_temp_max"].as<int>()+trays[tray_idx]["nozzle_temp_min"].as<int>())/2);
                         
                     }
+                    break;
                 }
 
                 if (incomingJson["print"]["ams"].containsKey("ams_exist_bits"))
@@ -627,6 +628,7 @@ void xtouch_mqtt_processPushStatus(JsonDocument &incomingJson)
             xtouch_mqtt_sendMsg(XTOUCH_ON_AMS_SLOT_UPDATE,0);
             printf("AMS status main %d\n",bambuStatus.ams_status_main);
             printf("AMS status sub  %d\n",bambuStatus.ams_status_sub);
+            printf("AMS tray now  %d\n",bambuStatus.m_tray_now);
         }
 
         // vt_tray
