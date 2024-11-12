@@ -231,7 +231,7 @@ void xtouch_webserver_begin()
 
     MDNS.addService("http", "tcp", 80);
     Serial.println("Webserver started");
-    Serial.println("http://xtouch.local");
+    Serial.println("http://P1Stouch.local");
     Serial.println(WiFi.localIP());
 }
 
