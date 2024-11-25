@@ -87,7 +87,7 @@ void sendError(AsyncWebServerRequest *request, String desc)
 void xtouch_webserver_begin()
 {
     Serial.println("Starting webserver...");
-    if (!MDNS.begin("P1STouch"))
+    if (!MDNS.begin("xtouch"))
     {
         Serial.println("Error starting mDNS");
         return;
@@ -100,138 +100,42 @@ void xtouch_webserver_begin()
         .addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
 
     // Handle form submission
-    server.on("/submit", HTTP_POST, [](AsyncWebServerRequest *request) {}, NULL, [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
-              {
-              StaticJsonDocument<200> jsonDoc;
-              DeserializationError error = deserializeJson(jsonDoc, data, len);
-              
-              if (error)
-              {
-                  Serial.println("Failed to parse JSON");
-                  request->send(400, "text/plain", "Invalid JSON");
-                  return;
-              }
+    server.on(
+        "/provision",
+        HTTP_POST,
+        [](AsyncWebServerRequest *request) {},
+        NULL,
+        [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
+        {
+            StaticJsonDocument<2048> jsonDoc;
+            DeserializationError error = deserializeJson(jsonDoc, data, len);
+            serializeJsonPretty(jsonDoc, Serial);
 
-              String code = jsonDoc["verificationCode"].as<String>();
-              Serial.println("Received verification code: " + code);
-              
-              // Send confirmation response
-              request->send(200, "text/plain", "Code received: " + code);
+            xtouch_filesystem_writeJson(SD, xtouch_paths_config, jsonDoc);
 
-              // Process the verification code
-              if (cloud.mainLogin(code))
-              {
-                //   xtouch_webserver_end();
-                  xtouch_mqtt_setup();
-              } });
+            request->send(200, "application/json", "{\"status\":\"ok\"}");
 
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
-              {
-
-                const char *html = R"rawliteral(
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bambu Lab Verification Code</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            width: 100%;
-        }
-        input[type="text"] {
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            margin-top: 10px;
-            font-size: 14px;
-            color: green;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Enter Bambu Lab Verification Code</h1>
-        <h3>Check your email for the code</h3>
-        <form id="verificationForm">
-            <input type="text" id="verificationCode" name="verificationCode" placeholder="Enter your code" minlength="6" maxlength="6" required>
-            <button type="submit">Submit</button>
-            <div id="message" class="message"></div>
-        </form>
-    </div>
-
-    <script>
-        document.getElementById('verificationForm').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent form from submitting traditionally
-
-            const code = document.getElementById('verificationCode').value;
-            const messageElement = document.getElementById('message');
-
-            try {
-                const response = await fetch('/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ verificationCode: code })
-                });
-
-                if (response.ok) {
-                    messageElement.textContent = 'Verification code submitted successfully!';
-                    messageElement.style.color = 'green';
-                } else {
-                    messageElement.textContent = 'Failed to submit the code. Please try again.';
-                    messageElement.style.color = 'red';
-                }
-            } catch (error) {
-                messageElement.textContent = 'An error occurred. Please try again later.';
-                messageElement.style.color = 'red';
-            }
+            delay(3000);
+            ESP.restart();
+            //
         });
-    </script>
-</body>
-</html>
-)rawliteral";
 
-    AsyncWebServerResponse *response = request->beginResponse(200, "text/html", html);
-//   response->addHeader("Content-Encoding", "gzip");
-    request->send(response); });
+    server.on(
+        "/",
+        HTTP_GET,
+        [](AsyncWebServerRequest *request)
+        {
+            const char *html = R"rawliteral(<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>XTouch Web Installer</title><style>:root{--color-black:black;--color-cod-gray:#101010;--color-white:white;--color-error:rgb(191, 95, 95);--color-primary-rgba:0,192,251;--color-primary:#666666;--color-secondary-rgba:234,182,56;--color-secondary:#eab638;--esp-tools-button-color:#cccccc;--esp-tools-button-text-color:#101010;--improv-primary-color:#484}esp-web-install-button :host{--mdc-theme-primary:#2aff00}ewt-install-dialog:host{--mdc-theme-primary:#2aff00}body,html{background-color:var(--color-cod-gray);padding:0;margin:0;overflow:hidden}.tiles{display:flex;flex-direction:column;justify-content:center;left:50%;position:fixed;top:50%;-webkit-transform:translateX(-50%) translateY(-50%) rotate(22.5deg)}.tiles__line{-webkit-animation:runner 20s linear infinite;display:flex;transform:translateX(25%)}.tiles__line:nth-child(2){-webkit-animation-duration:64s}.tiles__line:nth-child(3){-webkit-animation-duration:44s}@keyframes runner{to{-webkit-transform:translateX(-25%)}}.tiles__line-img{--tile-margin:3vw;background-position:50% 50%;background-size:cover;border-radius:50%;flex:none;height:30vh;margin:var(--tile-margin);width:30vh;background-color:var(--color-primary);opacity:.3}.tiles__line-img--large{border-radius:20vh;width:100vh;opacity:.1}.xhost__webusb{position:relative;background-color:#fff;padding:64px;display:table-cell;border-radius:16px;text-align:center;font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;font-weight:700}.xhost__webusb svg{display:block;margin-top:32px}.xhost__webusb-container{display:flex;justify-content:center;align-items:center;height:100vh}</style></head><body><div class="tiles"><div class="tiles__line"><div class="tiles__line-img tiles__line-img--large"></div><div class="tiles__line-img"></div><div class="tiles__line-img"></div><div class="tiles__line-img tiles__line-img--large"></div><div class="tiles__line-img"></div><div class="tiles__line-img"></div></div><div class="tiles__line"><div class="tiles__line-img"></div><div class="tiles__line-img"></div><div class="tiles__line-img tiles__line-img--large"></div><div class="tiles__line-img"></div><div class="tiles__line-img"></div><div class="tiles__line-img tiles__line-img--large"></div></div><div class="tiles__line"><div class="tiles__line-img"></div><div class="tiles__line-img tiles__line-img--large"></div><div class="tiles__line-img"></div><div class="tiles__line-img"></div><div class="tiles__line-img tiles__line-img--large"></div><div class="tiles__line-img"></div></div><div class="tiles__line"><div class="tiles__line-img"></div><div class="tiles__line-img tiles__line-img--large"></div><div class="tiles__line-img"></div><div class="tiles__line-img"></div><div class="tiles__line-img tiles__line-img--large"></div><div class="tiles__line-img"></div></div></div><div class="xhost__webusb-container"><div class="xhost__webusb">P1STouch</div></div></body></html>)rawliteral";
+            AsyncWebServerResponse *response = request->beginResponse(200, "text/html", html);
+            request->send(response);
+            //
+        });
 
     server.begin();
 
     MDNS.addService("http", "tcp", 80);
     Serial.println("Webserver started");
-    Serial.println("http://P1Stouch.local");
+    Serial.println("http://ps1touch.local");
     Serial.println(WiFi.localIP());
 }
 
