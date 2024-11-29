@@ -204,7 +204,7 @@ lv_obj_t *ui_settingsComponent_create(lv_obj_t *comp_parent)
 
     // lv_obj_t *ui_settingsBackLightPanelSlider;
     ui_settingsBackLightPanelSlider = lv_slider_create(cui_settingsBackLightPanel);
-    lv_slider_set_range(ui_settingsBackLightPanelSlider, 10, 255);
+    lv_slider_set_range(ui_settingsBackLightPanelSlider, 70, 255);
     lv_slider_set_value(ui_settingsBackLightPanelSlider, xTouchConfig.xTouchBacklightLevel, LV_ANIM_OFF);
     lv_obj_set_height(ui_settingsBackLightPanelSlider, 10);
     lv_obj_set_flex_grow(ui_settingsBackLightPanelSlider, 1);

@@ -94,7 +94,7 @@ public:
       cfg.pin_vsync   = GPIO_NUM_41;
       cfg.pin_hsync   = GPIO_NUM_39;
       cfg.pin_pclk    = GPIO_NUM_42;
-      cfg.freq_write  = 12500000; // TBD: 14000000;
+      cfg.freq_write  = 14000000; // TBD: 14000000;
 
       cfg.hsync_polarity    = 0;
       cfg.hsync_front_porch = 8;
@@ -171,6 +171,9 @@ bool xtouch_screen_touchFromPowerOff = false;
 
 void xtouch_screen_setBrightness(byte brightness)
 {
+    if (brightness < 70){
+        brightness=70;
+    }
     tft.setBrightness(brightness);
 }
 
