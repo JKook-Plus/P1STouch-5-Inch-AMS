@@ -46,7 +46,7 @@ Use Adaaks's [fork](https://adaksxtouch.netlify.app/) to install the XTouch firm
 
 ### 5. Download latest firmware
 
-Latest [.bin](https://github.com/thunderbolt93/P1STouch-5-Inch-AMS/releases) firmware file
+Latest `.bin` firmware file from the [xtouch Discord](https://discord.gg/RytEDEgfR3) (forks -> P1Stouch \[fork\])
 
 ### 6. Prepare SD card
 
